@@ -1,24 +1,25 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+<template lang="pug">
+#app
+  .w3-container
+    .w3-card-4 
+      h2 Simple time slider
+      TimeSlider
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import '@/assets/w3.css';  
+import TimeSlider from "./components/TimeSlider.vue";
 
 export default {
-  name: "App",
+  name: "app",
   components: {
-    HelloWorld
+    TimeSlider
   }
 };
 </script>
-
 <style lang="stylus">
 #app
-  font-family Avenir, Helvetica, Arial, sans-serif
+  font-family 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
