@@ -3,9 +3,8 @@
 
 module.exports = {
   devServer: { port: 8787 },
-  assetsDir:'script',
-  publicPath:
-    '/time-slider',
+  assetsDir: "script",
+  publicPath: "/time-slider",
 
   css: {
     requireModuleExtension: true
