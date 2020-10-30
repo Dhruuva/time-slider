@@ -1,8 +1,12 @@
 <template lang="pug">
 #app
-  .w3-container
-    div(class="w3-container w3-blue" id="zero")
-      h2 Simple time slider
+  div.w3-container
+    div(class="w3-card-4 w3-blue w3-padding-16" id="zero")
+      div.w3-container
+        h2 This is simple dashboard help You easy apply TimeSlider component on the your page. 
+        img.w3-display-topleft.w3-container(alt="Vue logo" src="./assets/logo.png" style="width:10%;max-width:150px")
+      div.w3-panel.w3-pale-yellow
+        h6.w3-opacity You can see the parameters effects and how to easy reach customization of the look.  
       .w3-row-padding.w3-border
         .w3-col.m2
           div.w3-panel.w3-yellow.w3-card-4
@@ -32,13 +36,13 @@
           div.w3-panel.w3-yellow.w3-card-4
             p Thumb size: {{d.mv}} 
             input(type="range" v-model="d.mv" min="0.01" max="0.95" step="0.01")
-        .w3-col.m6
+        .w3-col.m10
           blockquote.w3-panel.w3-leftbar.w3-light-grey
           p.w3-large
-          i {{str}}
+          i.w3-opacity.w3-large {{str}}
           p Just copy/past this code to your page
       .w3-panel           
-        TimeSlider(:ds="d" :n="f" :tickCount="tickCount" ) 
+        TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:currentTime="shiftTime($event)" ) 
       .w3-row-padding.w3-border
         .w3-col.m2
           div.w3-panel.w3-yellow.w3-card-4
@@ -54,16 +58,23 @@
             input(type="range" v-model="f.k"  min="10" max="1000" step="10")
         .w3-col.m2
           div.w3-panel.w3-yellow.w3-card-4
-            p Axis tick count: {{tickCount}} 
+            p Axis ticks count: {{tickCount}} 
             input(type="range" v-model.number="tickCount" min="2" max="48" step="1")
-
-      .w3-row-padding.w3-margin-top
-        .w3-third
-          input.w3-input.w3-border(type='text' placeholder='One')
-        .w3-third
-          input.w3-input.w3-border(type='text' placeholder='Two')
-        .w3-third
-          input.w3-input.w3-border(type='text' placeholder='Three')  
+        .w3-col.m2
+          div.w3-panel.w3-card-4.w3-margin      
+            button.w3-button.w3-green.w3-margin(@click="reDraw") ReDraw 
+      div.w3-panel.w3-pale-yellow
+        h6.w3-opacity To see changes use ReDraw button.        
+      .w3-col.m2.w3-margin
+          div.w3-panel.w3-blue.w3-card-4
+            h5 Time: 
+              span.w3-badge.w3-yellow.w3-xlarge {{curTime}}
+      .w3-col.m6.w3-margin
+          div.w3-panel.w3-blue.w3-card-4
+            p.w3-meddium
+            i.w3-opacity.w3-large v-on:currentTime="shiftTime($event)"
+            p To capture slider value use component 'currentTime' event         
+              
 </template>
 
 <script>
@@ -86,7 +97,8 @@ export default {
       mv: 0.06
     }, // Percent of mover size 100 X 100 (thumb)
     f: { t: 72.5, l: 81.4, k: 500 },
-    tickCount: 16 // :n="'{t:'+t+',l:'+l+',k:'+k+'}'"
+    tickCount: 16, // :n="'{t:'+t+',l:'+l+',k:'+k+'}'"
+    curTime: '00:00'
   }),
   computed: {
     ds: function() {
@@ -128,23 +140,36 @@ export default {
       return p;
     },
     str: function() {
-      let p = ":ds=";
-      p = p.concat(this.ds, " :n=", this.n, " :tickCount=", this.tickCount);
+      let p = "<TimeSlider :ds=";
+      p = p.concat(this.ds, " :n=", this.n, " :tickCount=", this.tickCount, " ><TimeSlider/>");
       return p;
     },
     tik: function() {
       console.log(" tickCount ", parseInt(this.tickCount));
       return parseInt(this.tickCount);
     }
+  },
+  methods: {
+    shiftTime(a) {
+      this.curTime=a;
+    },
+    reDraw (){
+      console.log(this.$refs.timeSlider);
+      this.$refs.timeSlider.initSvg()
+      //timeSlider2.init
+    }
   }
 };
 </script>
 <style lang="stylus">
+body
+  padding 5px 
+  background-color  #fff6e6
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
   color #2c3e50
-  margin-top 60px
+  margin-top 30px
 </style>
