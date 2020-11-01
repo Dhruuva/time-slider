@@ -1,0 +1,41 @@
+@import './variables.styl'
+body
+	font-size 2em
+	font 14px/1.5 Helvetica, arial, sans-serif
+.zero 
+	width 100%
+	display flex
+	justify-content center
+	align-items center
+	&_rect
+		stroke darken($colorMain, 10%) 
+		stroke-width 5.5 
+		fill lighten($color, 90%)
+		border-style solid 
+		stroke-opacity 0.1
+		rx 15
+.axis
+	stroke desaturate($colorMain, 10%)	
+	&_ticks
+		stroke lighten($colorMain, 10%)
+		&_labels
+			font-family sans-serif
+			text-anchor middle
+			fill lighten($colorMain, 20%)
+			text-align center
+.draggable
+	stroke lighten($colorMain, 30%) 
+	fill lighten($colorMain, 93%)
+	stroke-width  sw = 2
+	transition opacity 0.5s linear
+	&:hover
+		cursor move
+		stroke-width sw*1.5
+		fill lighten($color, 50%)
+.static 
+	cursor arrow
+.lblNowTime
+	font-family arial
+	fill $colorMain
+	text-align center
+	text-anchor middle

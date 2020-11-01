@@ -98,7 +98,7 @@ export default {
     }, // Percent of mover size 100 X 100 (thumb)
     f: { t: 72.5, l: 81.4, k: 500 },
     tickCount: 16, // :n="'{t:'+t+',l:'+l+',k:'+k+'}'"
-    curTime: '00:00'
+    curTime: "00:00"
   }),
   computed: {
     ds: function() {
@@ -140,8 +140,15 @@ export default {
       return p;
     },
     str: function() {
-      let p = "<TimeSlider :ds=";
-      p = p.concat(this.ds, " :n=", this.n, " :tickCount=", this.tickCount, " ><TimeSlider/>");
+      let p = "<time-slider :ds=";
+      p = p.concat(
+        this.ds,
+        " :n=",
+        this.n,
+        " :tickCount=",
+        this.tickCount,
+        " ><time-slider/>"
+      );
       return p;
     },
     tik: function() {
@@ -151,11 +158,11 @@ export default {
   },
   methods: {
     shiftTime(a) {
-      this.curTime=a;
+      this.curTime = a;
     },
-    reDraw (){
+    reDraw() {
       console.log(this.$refs.timeSlider);
-      this.$refs.timeSlider.initSvg()
+      this.$refs.timeSlider.initSvg();
       //timeSlider2.init
     }
   }
@@ -163,7 +170,7 @@ export default {
 </script>
 <style lang="stylus">
 body
-  padding 5px 
+  padding 5px
   background-color  #fff6e6
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif

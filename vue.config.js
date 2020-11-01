@@ -7,7 +7,8 @@ module.exports = {
   publicPath: "/time-slider",
 
   css: {
-    requireModuleExtension: true
+    requireModuleExtension: true,
+    extract: false
   },
 
   chainWebpack: config => {

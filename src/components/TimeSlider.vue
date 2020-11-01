@@ -22,7 +22,7 @@ import DoAxes from "@/libs/doAxes.js";
 // @ is an alias to /src
 //import HelloWorld from '@/components/HelloWorld.vue'
 export default {
-	name: 'TimeSlider2',
+	name: 'TimeSlider',
 	props: {
 		n: {
 			type:Object,
@@ -52,7 +52,7 @@ export default {
 	
 	},
 	data:() => ({
-		msg: 'Welcome', title: 'TimeSlider2', error: '',
+		msg: 'Welcome', title: 'TimeSlider', error: '',
 		tiki: [],
 		tmlbl:[{"id" : 1 ,tm: "06:00", tmx:3.001}],
 		dragging: false,canSliderDrug: false,
@@ -65,13 +65,6 @@ export default {
 		middleOffset:0,
 	}),
 	computed: {
-		/*nn: function () { 
-				if ( this.fontSize === ''){
-					console.log ( " No defaults")
-					return {t:72.5, l:81.4, k: 500} // Ratio fontSize px to Width px, where k is for stroke
-				} else  return this.fontSize;
-			},*/
-		// mover scale, aspect ratio original 100*8
 		mv: function () { return (this.ds.h/8)*0.06  },
 		tmf: function () { return ((this.ds.w*this.u/this.n.t)/this.u)+"px"  },
 		lbf: function () { return ( (this.ds.w*this.u/this.n.l)/this.u)+"px" },
@@ -110,13 +103,8 @@ export default {
 			this.tmlbl=doAxes.fillTimeLabel(this.ds.w,of,1440).map((x) => x);
 			while (this.tiki.length>0) {	this.tiki.pop()	};
 			this.tiki=doAxes.fillAxisLabel(of,1440,tickCount).map((x) => x);
-			//this.tmlbl=doAxes.fillAxisLabel(3,1440,12).map((x) => x);
-			//console.log(" setTicks DONE",this.middleOffset);
-			console.log("setTicks DONE off ", of, "this.middleOffset:", this.middleOffset);
 		},
 		initSvg(event) {
-			console.log(" initSvg props",this.n )
-			//console.log( "Class List :",event.target.classList, "Class Name :",event.target.className);
 			if (event) {
 				this.svgSlider=event.target;
 				console.log("Event  this.svgSlider" ,this.svgSlider);
@@ -128,34 +116,22 @@ export default {
 				return;
 			}
 
-			//console.log("initSvg svgSlider" ,this.svgSlider);
 			if (this.svgSlider) {
 				let CTM = this.svgSlider.getScreenCTM();
-				//console.log(" CTM :" ,CTM);
 				let moverPos =this.svgSlider.getElementById('pMover').getBoundingClientRect();
 				this.u = CTM.a;
 				this.middleOffset = ((moverPos.width)/CTM.a)/2;
-				//console.log("moverPos.width:" ,moverPos.width, "this.middleOffset:", this.middleOffset);
 				this.setTicks(this.tickCount);
 				this.setNowTime();
 			}
-			//this.svgLegth();
+			
 		},
 		svgLegth() {
 			var tk = document.querySelector(".ticklable");
-			console.log( "  svg Length ", tk, " child ", tk.children.length ," baseVal ",  tk.x.baseVal[0] );
 			let br = tk.getBoundingClientRect();
 			console.log(" bre: " , br);
 			var val  = tk.x.baseVal[0];
-			console.log(" ##value: " + val.value +
-				", #valueInSpecifiedUnits " + val.unitType + ": " + val.valueInSpecifiedUnits +
-				", #valueAsString: " + val.valueAsString);
-			//val.newValueSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_PT, 20);
 			val.convertToSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_MM);
-				console.log("value: " + val.value +
-				", valueInSpecifiedUnits " + val.unitType + ": " + val.valueInSpecifiedUnits +
-				", valueAsString: " + val.valueAsString);
-			// read x in pixel and cm units
 			for (let i = 0; i < tk.children.length; i++) {
 			  console.log(tk.children[i].font-family);
 			}
@@ -165,19 +141,14 @@ export default {
 			}
 			console.log("font--> ",  attrs['font-size'].value);
 			let fs =tk.attributes['font-size'].baseVal;
-			console.log("--> ", fs);
 			let rec =document.getElementById('svg0')
-			console.log("rec --> ", rec);
 			let recH = 25.4 * ( this.ds.h / 96);
 			let recH1 = 25.4 * ( this.ds.h*this.u / 96);
 			let p = "font="+ attrs['font-size'].value+" bre: " + br.width+ " mm ="+ 25.4 * ( br.width / 96)+ " rec H mm:" + recH + " rec1 H mm:" + recH1 +" br.height  mm ="+ 25.4 * ( br.height / 96);
 			attrs['font-size'].value=recH1*0.15+"mm";
-			this.iList.push(p);
-			//console.log("initSlider --> " ,document.getElementById('svg0'));
-			
+			this.iList.push(p);			
 		},
 		getMousePosition(evt) {
-			//console.log("this.svgSlider: ",this.svgSlider)
 			var CTM = this.svgSlider.getScreenCTM();
 			return {
 				x: (evt.clientX - CTM.e) / CTM.a,
@@ -194,33 +165,22 @@ export default {
 				let sPos = this.selectedElement.getBoundingClientRect()
 				console.log("offset ", this.offset.x, " x ", this.x," sPos ",sPos);
 			}
-			//console.log( "Class List :",event.target.classList, "Class Name :",event.target.className);
 		},
 		stopDrag() {
 			this.dragging = false;
-			// console.log("tstopDrag#### ",this.svgSlider)
 			this.selectedElement = null;
-			//this.x = this.y = 'no';
 		},
 		doDrag(event) {
 			event.preventDefault();
 			let tag = event.target
 			if (this.dragging) {
-				//this.x = event.clientX;
-				 // this.y = event.clientY;
-				 // this.x = parseFloat(this.selectedElement.getAttributeNS(null, "x"));
-				 // this.x=this.x+1;
 				let coord = this.getMousePosition(event);
 				let x1 = coord.x - this.offset.x;
 				let end = this.tmlbl.slice(-1)[0].tmx-this.middleOffset;
-				//console.log(end)
 				if ( x1 <= end && x1>0 ){
-								this.x = x1;
-								this.getDrugTime(this.x)}
-				//console.log(this.selectedElement.getAttributeNS(null, "x"), " x ", this.x, "event.clientX",event.clientX);
-				 // console.log(coord, " coord ", this.x, "event.clientX",event.clientX);
-				//this.selectedElement.setAttributeNS(null, "x", this.x + 1);
-				
+					this.x = x1;
+					this.getDrugTime(this.x)
+				}
 			}
 		},
 		getDrugTime(x){
@@ -228,8 +188,7 @@ export default {
 			let row = this.tmlbl.filter(a=> a.tmx >=m ).slice(0,1)[0];
 			this.curTm = row.tm;
 			this.$emit('currentTime',this.curTm);
-			//console.log(row);
-			//this.tmlbl.
+
 		},
 		
 	}
@@ -238,49 +197,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='stylus'>
-	$colorMain = black
-	$color = silver
-	body
-		font-size 2em
-		font 14px/1.5 Helvetica, arial, sans-serif
-	.zero 
-		width 100%
-		display flex
-		justify-content center
-		align-items center
-		&_rect
-			stroke darken($colorMain, 10%) 
-			stroke-width 5.5 
-			fill lighten($color, 90%)
-			border-style solid 
-			stroke-opacity 0.1
-			rx 15
-	.axis
-		stroke desaturate($colorMain, 10%)	
-		&_ticks
-			stroke lighten($colorMain, 10%)
-			&_labels
-				font-family sans-serif
-				text-anchor middle
-				fill lighten($colorMain, 20%)
-				text-align center
-  .draggable
-		stroke lighten($colorMain, 30%) 
-		fill lighten($colorMain, 93%)
-		stroke-width  sw = 2
-		transition opacity 0.5s linear
-		&:hover
-			cursor move
-			stroke-width sw*1.5
-			fill lighten($color, 50%)
-	.static 
-		cursor arrow
-	.lblNowTime
-		font-family arial
-		fill $colorMain
-		text-align center
-		text-anchor middle
-
-
+@import '.././assets/style/main.styl'
 	
 </style>
