@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/times-slider.svg)](https://badge.fury.io/js/times-slider)
+
 # TimeSlider
 A TimeSlider Vue component. Compatible with Vue 2.x
 ## Demo
