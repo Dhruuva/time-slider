@@ -31,4 +31,5 @@
     "vue-cli-plugin-pug-template": "~0.20.0",
     "vue-template-compiler": "^2.6.11"
   }
+ 
 }

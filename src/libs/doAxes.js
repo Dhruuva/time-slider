@@ -72,9 +72,9 @@ function DoAxes() {
         rtn = minutes / i;
         break;
       }
-      console.log(mayBeSize, " ###oddTickSize ", rtn);
+      //console.log(mayBeSize, " ###oddTickSize ", rtn);
     }
-    console.log(mayBeSize, " ###oddTickSize ", rtn);
+    // console.log(mayBeSize, " ###oddTickSize ", rtn);
     return rtn;
   };
   // Exhibating private methods

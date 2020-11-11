@@ -107,12 +107,9 @@ export default {
 		initSvg(event) {
 			if (event) {
 				this.svgSlider=event.target;
-				console.log("Event  this.svgSlider" ,this.svgSlider);
 			} else if (!event || !this.svgSlider ) {
 				this.svgSlider=document.getElementById('svg0');
-				console.log("##this.svgSlider" ,this.svgSlider)
 			} else {
-				console.log("initSvg not found  svg0" ,this.svgSlider)
 				return;
 			}
 
@@ -126,34 +123,19 @@ export default {
 			}
 			
 		},
-		svgLegth() {
-			var tk = document.querySelector(".ticklable");
-			let br = tk.getBoundingClientRect();
-			console.log(" bre: " , br);
-			var val  = tk.x.baseVal[0];
-			val.convertToSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_MM);
-			for (let i = 0; i < tk.children.length; i++) {
-			  console.log(tk.children[i].font-family);
-			}
-			let attrs=tk.attributes;
-			for(var i = attrs.length - 1; i >= 0; i--) {
-				console.log(attrs[i].name + "->" + attrs[i].value);
-			}
-			console.log("font--> ",  attrs['font-size'].value);
-			let fs =tk.attributes['font-size'].baseVal;
-			let rec =document.getElementById('svg0')
-			let recH = 25.4 * ( this.ds.h / 96);
-			let recH1 = 25.4 * ( this.ds.h*this.u / 96);
-			let p = "font="+ attrs['font-size'].value+" bre: " + br.width+ " mm ="+ 25.4 * ( br.width / 96)+ " rec H mm:" + recH + " rec1 H mm:" + recH1 +" br.height  mm ="+ 25.4 * ( br.height / 96);
-			attrs['font-size'].value=recH1*0.15+"mm";
-			this.iList.push(p);			
-		},
 		getMousePosition(evt) {
-			var CTM = this.svgSlider.getScreenCTM();
-			return {
-				x: (evt.clientX - CTM.e) / CTM.a,
-				y: (evt.clientY - CTM.f) / CTM.d
-			};
+			// var CTM = this.svgSlider.getScreenCTM();
+			// return {
+			// 	x: (evt.clientX - CTM.e) / CTM.a,
+			// 	y: (evt.clientY - CTM.f) / CTM.d
+			// };
+			
+			  let pt = this.svgSlider.createSVGPoint();
+			  pt.x = evt.clientX;
+			  pt.y = evt.clientY;
+			  let cursorPt = pt.matrixTransform(this.svgSlider.getScreenCTM().inverse());
+			  return {x: Math.floor(cursorPt.x), y: Math.floor(cursorPt.y)}
+			
 		},
 		startDrag(event) {
 			if (event.target.classList.contains('draggable')) {
@@ -163,7 +145,6 @@ export default {
 				//console.log("startDrag selectedElement ", this.selectedElement);
 				this.offset.x -=  this.x
 				let sPos = this.selectedElement.getBoundingClientRect()
-				console.log("offset ", this.offset.x, " x ", this.x," sPos ",sPos);
 			}
 		},
 		stopDrag() {
@@ -187,7 +168,7 @@ export default {
 			let m = this.middleOffset + x;
 			let row = this.tmlbl.filter(a=> a.tmx >=m ).slice(0,1)[0];
 			this.curTm = row.tm;
-			this.$emit('currentTime',this.curTm);
+			this.$emit('current-time',this.curTm);
 
 		},
 		

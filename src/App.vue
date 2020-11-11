@@ -42,7 +42,7 @@
           i.w3-opacity.w3-large {{str}}
           p Just copy/past this code to your page
       .w3-panel           
-        TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:currentTime="shiftTime($event)" ) 
+        TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:current-time="shiftTime($event)" ) 
       .w3-row-padding.w3-border
         .w3-col.m2
           div.w3-panel.w3-yellow.w3-card-4
@@ -72,8 +72,8 @@
       .w3-col.m6.w3-margin
           div.w3-panel.w3-blue.w3-card-4
             p.w3-meddium
-            i.w3-opacity.w3-large v-on:currentTime="shiftTime($event)"
-            p To capture slider value use component 'currentTime' event         
+            i.w3-opacity.w3-large v-on:current-time="shiftTime($event)"
+            p To capture slider value use component 'current-time' event         
               
 </template>
 
@@ -161,7 +161,7 @@ export default {
       this.curTime = a;
     },
     reDraw() {
-      console.log(this.$refs.timeSlider);
+      //console.log(this.$refs.timeSlider);
       this.$refs.timeSlider.initSvg();
       //timeSlider2.init
     }

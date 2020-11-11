@@ -3,15 +3,24 @@
 
 module.exports = {
   devServer: { port: 8787 },
-  assetsDir: "script",
-  publicPath: "/time-slider",
-
+  assetsDir: "www",
+ // publicPath: "/time-slider", // publish git remore
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/time-slider/'
+    : "/time-slider", 
+  //crossorigin: "anonymous",
+ // productionSourceMap: false,
+  //mode: 'production',
+  //productionTip = false, does not work
   css: {
     requireModuleExtension: true,
     extract: false
   },
 
   chainWebpack: config => {
+   // config.set('productionSourceMap',false);
+    //config.node.set('global', false)
+    //devServer.hot(true);
     const sRule = config.module.rule("stylus");
     //console.log("--------------->", sRule);
     sRule.uses.clear();
