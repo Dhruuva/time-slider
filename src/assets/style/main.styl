@@ -9,20 +9,18 @@ body
 	align-items center
 	&_rect
 		rx 15px
-		stroke darken($colorMain, 10%) 
-		stroke-width 5.5 
-		fill lighten($color, 90%)
+		stroke $colorMain 
+		stroke-width 1.5 
 		border-style solid 
-		stroke-opacity 0.1
+		stroke-opacity 0.71
 .axis
-	stroke lighten($colorMain, 10%)	
+	stroke $colorMain
 	&_ticks
-		stroke lighten($colorMain, 10%)
+		stroke $colorMain
 		&_labels
 			font-family sans-serif
 			text-anchor middle
-			fill lighten($colorMain, 20%)
-			text-align center
+			fill $colorMain
 .draggable
 	stroke-width  0
 	&:hover

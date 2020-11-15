@@ -17,8 +17,14 @@
 						stop(offset="40%" class="main-stop" stop-opacity="0.1")
 						stop(offset="80%" class="alt-stop" stop-opacity="0.5")
 						stop(offset="100%" class="alt-stop"  stop-opacity="1")
+					linearGradient#bg-slider(x1="0%" y1="0%" x2="0%" y2="100%")
+						stop(offset="0%"  class="alt-stop" stop-opacity=".1")
+						stop(offset="5%"  class="alt-stop" stop-opacity=".99")
+						stop(offset="40%" class="alt-stop" stop-opacity="0.98")
+						stop(offset="95%" class="alt-stop" stop-opacity="0.99")
+						stop(offset="100%" class="alt-stop"  stop-opacity=".1")
 				g.static
-					rect.zero_rect( x="0" y="0" :width="ds.w" :height="ds.h" )
+					rect.zero_rect( x="0" y="0" :width="ds.w" :height="ds.h"  fill="url(#bg-slider)")
 					circle.cirsi( cx="90" cy="5" r="13" )
 					line.axis( :x1="middleOffset" :x2="ds.w-middleOffset" :y1="ds.h*ds.y" :y2="ds.h*ds.y" :stroke-width="k"  )
 					text.lblNowTime( :x="x+middleOffset" :y="ds.h*ds.tmy"   :font-size="tmf" ) {{curTm}}
@@ -60,7 +66,15 @@ export default {
 		tickCount:{
 			type:Number,
 			default: () =>( 25)
-		}
+		},
+		colorMain: {
+      type: String,
+      default: "red"
+    },
+    color: {
+      type: String,
+      default: "snow"
+    },
 	},
 	components: {
 	
@@ -89,11 +103,12 @@ export default {
 		window.addEventListener('mouseup', this.stopDrag);
 		this.initSvg();
 		//console.log("mounted  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']  );
-		document.querySelector(".main-stop").style['stop-color']='red'
+		//document.querySelector(".main-stop").style['stop-color']='red'
 		console.log("created  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']);
 		console.log("created  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']);
-		document.getElementById('v-time-slider').style.setProperty('--main-bg-color', 'pink')
-		console.log(" var ", document.getElementById('v-time-slider').style);
+		document.getElementById('v-time-slider').style.setProperty('--colorMain', this.colorMain);
+		document.getElementById('v-time-slider').style.setProperty('--color', this.color)
+		console.log(" v-time-slider ", document.getElementById('v-time-slider').style);
 	},
 	created() {
 		
@@ -202,10 +217,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='stylus'>
 @import '.././assets/style/main.styl'
-theme-background = var(--theme-background,#7FFF00)
-$colori = var(--main-bg-color)
+$colorMain = var(--colorMain)
+$color = var(--color)
 .cirsi
-	fill	lighten($color, 10%)
+	fill $colorMain
 	stroke $colori
 	stroke-width 3px
 #v-time-slider
