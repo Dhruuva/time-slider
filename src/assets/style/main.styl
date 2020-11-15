@@ -15,7 +15,7 @@ body
 		border-style solid 
 		stroke-opacity 0.1
 .axis
-	stroke desaturate($colorMain, 10%)	
+	stroke lighten($colorMain, 10%)	
 	&_ticks
 		stroke lighten($colorMain, 10%)
 		&_labels
@@ -24,14 +24,15 @@ body
 			fill lighten($colorMain, 20%)
 			text-align center
 .draggable
-	stroke lighten($colorMain, 30%) 
-	fill lighten($colorMain, 93%)
-	stroke-width  sw = 2
-	transition opacity 0.5s linear
+	stroke-width  0
 	&:hover
 		cursor move
-		stroke-width sw*1.5
-		fill lighten($color, 50%)
+		stroke-width 1
+		stroke $colorMain
+.main-stop 
+	stop-color  $colorMain
+.alt-stop 
+	stop-color  $color
 .static 
 	cursor arrow
 .lblNowTime

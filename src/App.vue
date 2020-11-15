@@ -98,7 +98,7 @@ export default {
     }, // Percent of mover size 100 X 100 (thumb)
     f: { t: 72.5, l: 81.4, k: 500 },
     tickCount: 16, // :n="'{t:'+t+',l:'+l+',k:'+k+'}'"
-    curTime: "00:00"
+    curTime: new Date(Date.now()).toTimeString().slice(0,5)
   }),
   computed: {
     ds: function() {

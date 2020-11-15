@@ -1,23 +1,37 @@
 <template lang="pug">
-	div
+	#v-time-slider(ref="v-time_slider")
 		p(v-if="error") {{error}}
 		svg#svg0.zero( :viewBox="'0,0,'+ds.w+','+ds.h+''" xmlns="http://www.w3.org/2000/svg"  @mousedown="startDrag($event)" @mousemove="doDrag" @load="initSvg")
 				defs(id="comps")
 					g#mover
-						path(d="m0 10 h80 l0 20 l-20 0 l-10 20 l10 0 l-20 20 l-20 -20 l10 0 l-10 -20 l-20 0 l0 -20")
+						path( d="m0 10 h80 l0 20 l-20 0 l-10 20 l10 0 l-20 20 l-20 -20 l10 0 l-10 -20 l-20 0 l0 -20" fill="url(#out-mover)")
+						path( d="m2 12 h76 l0 16 l-20 0 l-12 24 l9 0 l-15 15  l-15 -15 l9 0  l-12 -24 l-20 0 l0 -16" fill="url(#inner-mover)")
+					linearGradient#inner-mover(x1="0%" y1="0%" x2="0%" y2="100%")
+						stop(offset="0%"   class="alt-stop" stop-opacity="1")
+						stop(offset="30%" class="main-stop" stop-opacity=".3")
+						stop(offset="60%" class="main-stop" stop-opacity=".5")
+						stop(offset="100%" class="main-stop" stop-opacity="1")
+					linearGradient#out-mover(x1="0%" y1="0%" x2="0%" y2="100%")
+						stop(offset="0%"  class="main-stop" stop-opacity=".1")
+						stop(offset="5%"  class="main-stop" stop-opacity="1")
+						stop(offset="40%" class="main-stop" stop-opacity="0.1")
+						stop(offset="80%" class="alt-stop" stop-opacity="0.5")
+						stop(offset="100%" class="alt-stop"  stop-opacity="1")
 				g.static
 					rect.zero_rect( x="0" y="0" :width="ds.w" :height="ds.h" )
+					circle.cirsi( cx="90" cy="5" r="13" )
 					line.axis( :x1="middleOffset" :x2="ds.w-middleOffset" :y1="ds.h*ds.y" :y2="ds.h*ds.y" :stroke-width="k"  )
 					text.lblNowTime( :x="x+middleOffset" :y="ds.h*ds.tmy"   :font-size="tmf" ) {{curTm}}
 				g.static(v-for="n in tiki" :key="n.id") 
 					line.axis_ticks( :x1="n.x" :x2="n.x" :y1="ds.h*ds.y" :y2="ds.h*ds.y-ds.h*ds.tsz" :stroke-width="k")
 					text.axis_ticks_labels( :x="n.x" :y="ds.h*ds.lby"  :font-size="lbf" ) {{n.tml}}
-				g#pMover( @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug")
-					use.draggable(xlink:href="#mover"  :transform="'translate('+x+','+ds.h*y+') scale('+mv+')'" )
+				g#pMover( @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug" )
+					use(xlink:href="#mover"  :transform="'translate('+x+','+ds.h*y+') scale('+mv+')'" class="draggable")
 </template>
 
 <script>
 import DoAxes from "@/libs/doAxes.js";
+//var stylus = require('stylus');
 /* eslint-disable */
 // @ is an alias to /src
 //import HelloWorld from '@/components/HelloWorld.vue'
@@ -34,11 +48,11 @@ export default {
 				{
 					w: 2000,
 					h: 120,     // for viewBox( 0,0,w,h)
-				   y: 0.7125,   // Percent of height (h) where axis placed 0.50 means middle
-				   tmy: 0.201,  // Percent of height (h) where current time label placed
-				   tsz: 0.06,   // Percent of height (h) ticks length
-				   lby: 0.93,   // Percent of height (h) where ticks labels placed
-				   mv:  0.06,   // Percent of mover size 100 X 100 (thumb)
+					 y: 0.7125,   // Percent of height (h) where axis placed 0.50 means middle
+					 tmy: 0.201,  // Percent of height (h) where current time label placed
+					 tsz: 0.06,   // Percent of height (h) ticks length
+					 lby: 0.93,   // Percent of height (h) where ticks labels placed
+					 mv:  0.06,   // Percent of mover size 100 X 100 (thumb)
 
 				}
 			) //ds:{w:2000, h:120,  y:0.7125, tmy:0.20, tsz:0.06, lby:0.93, mv:0.06 },
@@ -58,7 +72,7 @@ export default {
 		dragging: false,canSliderDrug: false,
 		x: 50,  y: 0.15,
 		u: 1,     // Point size in Pixel
-		curTm:"06:00",
+		curTm: new Date(Date.now()).toTimeString().slice(0,5),
 		selectedElement:false,
 		offset:0,  // Mouse offset define in startDrag
 		svgSlider:null,
@@ -74,18 +88,27 @@ export default {
 	mounted: function () {
 		window.addEventListener('mouseup', this.stopDrag);
 		this.initSvg();
+		//console.log("mounted  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']  );
+		document.querySelector(".main-stop").style['stop-color']='red'
+		console.log("created  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']);
+		console.log("created  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']);
+		document.getElementById('v-time-slider').style.setProperty('--main-bg-color', 'pink')
+		console.log(" var ", document.getElementById('v-time-slider').style);
 	},
 	created() {
-	
+		
 	},
 	activated(){
-	
+		console.log("activated")
 	},
 	watch: {
 
 	},
 	methods: {
-
+		applyVariables () {
+			const scope = document.documentElement.styles;
+			return scope;// = this.theme.background;
+		},
 		setNowTime(){
 			// Set Current Time
 			this.curTm = new Date(Date.now()).toTimeString().slice(0,5);
@@ -130,11 +153,11 @@ export default {
 			// 	y: (evt.clientY - CTM.f) / CTM.d
 			// };
 			
-			  let pt = this.svgSlider.createSVGPoint();
-			  pt.x = evt.clientX;
-			  pt.y = evt.clientY;
-			  let cursorPt = pt.matrixTransform(this.svgSlider.getScreenCTM().inverse());
-			  return {x: Math.floor(cursorPt.x), y: Math.floor(cursorPt.y)}
+				let pt = this.svgSlider.createSVGPoint();
+				pt.x = evt.clientX;
+				pt.y = evt.clientY;
+				let cursorPt = pt.matrixTransform(this.svgSlider.getScreenCTM().inverse());
+				return {x: Math.floor(cursorPt.x), y: Math.floor(cursorPt.y)}
 			
 		},
 		startDrag(event) {
@@ -179,5 +202,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='stylus'>
 @import '.././assets/style/main.styl'
-	
+theme-background = var(--theme-background,#7FFF00)
+$colori = var(--main-bg-color)
+.cirsi
+	fill	lighten($color, 10%)
+	stroke $colori
+	stroke-width 3px
+#v-time-slider
+	text-align center
+
+</style>
+<style lang='stylus'>
+		
 </style>
