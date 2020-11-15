@@ -18,11 +18,11 @@
 						stop(offset="80%" class="alt-stop" stop-opacity="0.5")
 						stop(offset="100%" class="alt-stop"  stop-opacity="1")
 					linearGradient#bg-slider(x1="0%" y1="0%" x2="0%" y2="100%")
-						stop(offset="0%"  class="alt-stop" stop-opacity=".1")
-						stop(offset="5%"  class="alt-stop" stop-opacity=".99")
+						stop(offset="0%"  class="main-stop" stop-opacity=".51")
+						stop(offset="1%"  class="alt-stop" stop-opacity=".99")
 						stop(offset="40%" class="alt-stop" stop-opacity="0.98")
-						stop(offset="95%" class="alt-stop" stop-opacity="0.99")
-						stop(offset="100%" class="alt-stop"  stop-opacity=".1")
+						stop(offset="99%" class="alt-stop" stop-opacity="0.99")
+						stop(offset="100%" class="main-stop"  stop-opacity=".51")
 				g.static
 					rect.zero_rect( x="0" y="0" :width="ds.w" :height="ds.h"  fill="url(#bg-slider)")
 					circle.cirsi( cx="90" cy="5" r="13" )
@@ -73,7 +73,7 @@ export default {
     },
     color: {
       type: String,
-      default: "snow"
+      default: "#ffab8c"
     },
 	},
 	components: {
@@ -102,13 +102,8 @@ export default {
 	mounted: function () {
 		window.addEventListener('mouseup', this.stopDrag);
 		this.initSvg();
-		//console.log("mounted  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']  );
-		//document.querySelector(".main-stop").style['stop-color']='red'
-		console.log("created  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']);
-		console.log("created  " ,this.curTm ," var ", document.querySelector(".main-stop").style['stop-color']);
 		document.getElementById('v-time-slider').style.setProperty('--colorMain', this.colorMain);
 		document.getElementById('v-time-slider').style.setProperty('--color', this.color)
-		console.log(" v-time-slider ", document.getElementById('v-time-slider').style);
 	},
 	created() {
 		
@@ -216,17 +211,48 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='stylus'>
-@import '.././assets/style/main.styl'
+//@import '.././assets/style/main.styl'
 $colorMain = var(--colorMain)
 $color = var(--color)
-.cirsi
-	fill $colorMain
-	stroke $colori
-	stroke-width 3px
+body
+	font-size 2em
+	font 14px/1.5 Helvetica, arial, sans-serif
 #v-time-slider
+	text-align center	
+.zero 
+	width 100%
+	display flex
+	justify-content center
+	align-items center
+	&_rect
+		rx 15px
+		stroke $colorMain 
+		stroke-width 1.5 
+		border-style solid 
+		stroke-opacity 0.71
+.axis
+	stroke $colorMain
+	&_ticks
+		stroke $colorMain
+		&_labels
+			font-family sans-serif
+			text-anchor middle
+			fill $colorMain
+.draggable
+	stroke-width  0
+	&:hover
+		cursor move
+		stroke-width 1
+		stroke $colorMain
+.main-stop 
+	stop-color  $colorMain
+.alt-stop 
+	stop-color  $color
+.static 
+	cursor arrow
+.lblNowTime
+	font-family arial
+	fill $colorMain
 	text-align center
-
-</style>
-<style lang='stylus'>
-		
+	text-anchor middle
 </style>
