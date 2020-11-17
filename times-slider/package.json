@@ -20,7 +20,7 @@
     "slider",
     "input"
   ],
-  "author": "Aleksey Bazhenov alekseybazhenov@gmail.com",
+  "author": "Aleksey Bazhenov <alekseybazhenov@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Dhruuva/time-slider/issues"
