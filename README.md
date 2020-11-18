@@ -62,3 +62,6 @@ Or use directly from a CDN
 </script>
 
 ```
+# try it
+See the Pen [first-look](https://codepen.io/dhruuva/pen/YzWMYWJ) by Aleksey Bazhenov
+  ([@dhruuva](https://codepen.io/dhruuva)) on [CodePen](https://codepen.io).
