@@ -8,9 +8,9 @@
 						path( d="m2 12 h76 l0 16 l-20 0 l-12 24 l9 0 l-15 15  l-15 -15 l9 0  l-12 -24 l-20 0 l0 -16" :fill="'url(#inner-mover-'+uid+')'")
 					linearGradient(:id="'out-mover-'+uid+''" x1="0%" y1="0%" x2="0%" y2="100%")
 						stop(offset="0%"   class="alt-stop" stop-opacity="1")
-						stop(offset="30%"  :stop-color="colorMain" stop-opacity=".3")
-						stop(offset="60%"  :stop-color="colorMain" stop-opacity=".5")
-						stop(offset="100%"  :stop-color="colorMain" stop-opacity="1")
+						stop(offset="30%"  class="main-stop" stop-opacity=".3")
+						stop(offset="60%"  class="main-stop" stop-opacity=".5")
+						stop(offset="100%" class="main-stop" stop-opacity="1")
 					linearGradient(:id="'inner-mover-'+uid+''"  x1="0%" y1="0%" x2="0%" y2="100%")
 						stop(offset="0%"  class="main-stop" stop-opacity=".1")
 						stop(offset="5%"  class="main-stop" stop-opacity="1")
@@ -34,7 +34,6 @@
 					text.axis_ticks_labels( :x="n.x" :y="ds.h*ds.lby"  :font-size="lbf" ) {{n.tml}}
 				g#pMover( @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug" )
 					use(:xlink:href="'#mover-'+uid+''"  :transform="'translate('+x+','+ds.h*y+') scale('+ds.mv+')'" class="draggable")
-					use(:xlink:href="'#cir-'+uid+''")
 </template>
 
 <script>
