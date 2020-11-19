@@ -6,7 +6,7 @@ module.exports = {
   assetsDir: "www",
  // publicPath: "/time-slider", // publish git remore
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/time-slider/'
+    ? "/time-slider"
     : "/time-slider", 
   //crossorigin: "anonymous",
  // productionSourceMap: false,

@@ -1,42 +1,45 @@
 <template lang="pug">
-	#v-time-slider(ref="v-time_slider")
+	#v-time-slider(ref="v_time_slider")
 		p(v-if="error") {{error}}
 		svg#svg0.zero( :viewBox="'0,0,'+ds.w+','+ds.h+''" xmlns="http://www.w3.org/2000/svg"  @mousedown="startDrag($event)" @mousemove="doDrag" @load="initSvg")
 				defs(id="comps")
-					g#mover
-						path( d="m0 10 h80 l0 20 l-20 0 l-10 20 l10 0 l-20 20 l-20 -20 l10 0 l-10 -20 l-20 0 l0 -20" fill="url(#out-mover)")
-						path( d="m2 12 h76 l0 16 l-20 0 l-12 24 l9 0 l-15 15  l-15 -15 l9 0  l-12 -24 l-20 0 l0 -16" fill="url(#inner-mover)")
-					linearGradient#inner-mover(x1="0%" y1="0%" x2="0%" y2="100%")
+					g(:id="'mover-'+uid+''")
+						path( d="m0 10 h80 l0 20 l-20 0 l-10 20 l10 0 l-20 20 l-20 -20 l10 0 l-10 -20 l-20 0 l0 -20" :fill="'url(#out-mover-'+uid+')'")
+						path( d="m2 12 h76 l0 16 l-20 0 l-12 24 l9 0 l-15 15  l-15 -15 l9 0  l-12 -24 l-20 0 l0 -16" :fill="'url(#inner-mover-'+uid+')'")
+					linearGradient(:id="'out-mover-'+uid+''" x1="0%" y1="0%" x2="0%" y2="100%")
 						stop(offset="0%"   class="alt-stop" stop-opacity="1")
-						stop(offset="30%" class="main-stop" stop-opacity=".3")
-						stop(offset="60%" class="main-stop" stop-opacity=".5")
-						stop(offset="100%" class="main-stop" stop-opacity="1")
-					linearGradient#out-mover(x1="0%" y1="0%" x2="0%" y2="100%")
+						stop(offset="30%"  :stop-color="colorMain" stop-opacity=".3")
+						stop(offset="60%"  :stop-color="colorMain" stop-opacity=".5")
+						stop(offset="100%"  :stop-color="colorMain" stop-opacity="1")
+					linearGradient(:id="'inner-mover-'+uid+''"  x1="0%" y1="0%" x2="0%" y2="100%")
 						stop(offset="0%"  class="main-stop" stop-opacity=".1")
 						stop(offset="5%"  class="main-stop" stop-opacity="1")
 						stop(offset="40%" class="main-stop" stop-opacity="0.1")
 						stop(offset="80%" class="alt-stop" stop-opacity="0.5")
 						stop(offset="100%" class="alt-stop"  stop-opacity="1")
-					linearGradient#bg-slider(x1="0%" y1="0%" x2="0%" y2="100%")
+					linearGradient(:id="'bg-slider-'+uid+''" x1="0%" y1="0%" x2="0%" y2="100%")
 						stop(offset="0%"  class="main-stop" stop-opacity=".51")
 						stop(offset="1%"  class="alt-stop" stop-opacity=".99")
 						stop(offset="40%" class="alt-stop" stop-opacity="0.98")
 						stop(offset="99%" class="alt-stop" stop-opacity="0.99")
 						stop(offset="100%" class="main-stop"  stop-opacity=".51")
+					g(:id="'cir-'+uid+''")
+						circle( cx="29" cy="45" r="30" :fill="'url(#inner-mover-'+uid+')'")
 				g.static
-					rect.zero_rect( x="0" y="0" :width="ds.w" :height="ds.h"  fill="url(#bg-slider)")
-					circle.cirsi( cx="90" cy="5" r="13" )
+					rect.zero_rect( x="0" y="0" :width="ds.w" :height="ds.h"  :fill="'url(#bg-slider-'+uid+')'")
 					line.axis( :x1="middleOffset" :x2="ds.w-middleOffset" :y1="ds.h*ds.y" :y2="ds.h*ds.y" :stroke-width="k"  )
 					text.lblNowTime( :x="x+middleOffset" :y="ds.h*ds.tmy"   :font-size="tmf" ) {{curTm}}
 				g.static(v-for="n in tiki" :key="n.id") 
 					line.axis_ticks( :x1="n.x" :x2="n.x" :y1="ds.h*ds.y" :y2="ds.h*ds.y-ds.h*ds.tsz" :stroke-width="k")
 					text.axis_ticks_labels( :x="n.x" :y="ds.h*ds.lby"  :font-size="lbf" ) {{n.tml}}
 				g#pMover( @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug" )
-					use(xlink:href="#mover"  :transform="'translate('+x+','+ds.h*y+') scale('+mv+')'" class="draggable")
+					use(:xlink:href="'#mover-'+uid+''"  :transform="'translate('+x+','+ds.h*y+') scale('+ds.mv+')'" class="draggable")
+					use(:xlink:href="'#cir-'+uid+''")
 </template>
 
 <script>
 import DoAxes from "@/libs/doAxes.js";
+const doAxes = new DoAxes();
 //var stylus = require('stylus');
 /* eslint-disable */
 // @ is an alias to /src
@@ -58,22 +61,26 @@ export default {
 					 tmy: 0.201,  // Percent of height (h) where current time label placed
 					 tsz: 0.06,   // Percent of height (h) ticks length
 					 lby: 0.93,   // Percent of height (h) where ticks labels placed
-					 mv:  0.06,   // Percent of mover size 100 X 100 (thumb)
+					 mv:  0.93,   // Percent of mover size 100 X 100 (thumb)
 
 				}
 			) //ds:{w:2000, h:120,  y:0.7125, tmy:0.20, tsz:0.06, lby:0.93, mv:0.06 },
 		},
 		tickCount:{
 			type:Number,
-			default: () =>( 25)
+			default: () =>(25)
 		},
 		colorMain: {
       type: String,
-      default: "red"
+      default: "slateGray"
     },
     color: {
       type: String,
-      default: "#ffab8c"
+      default: "aliceBlue"
+    },
+    uid: {
+      type: String,
+      default: () =>(Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5))
     },
 	},
 	components: {
@@ -102,8 +109,11 @@ export default {
 	mounted: function () {
 		window.addEventListener('mouseup', this.stopDrag);
 		this.initSvg();
-		document.getElementById('v-time-slider').style.setProperty('--colorMain', this.colorMain);
-		document.getElementById('v-time-slider').style.setProperty('--color', this.color)
+		console.log(this.$refs.v_time_slider.style,"  ",this.uid)
+		this.$refs.v_time_slider.style.setProperty('--colorMain', this.colorMain);
+		this.$refs.v_time_slider.style.setProperty('--color', this.color);
+		//document.getElementById('v-time-slider').style.setProperty('--colorMain', this.colorMain);
+		//document.getElementById('v-time-slider').style.setProperty('--color', this.color)
 	},
 	created() {
 		
@@ -112,7 +122,12 @@ export default {
 		console.log("activated")
 	},
 	watch: {
-
+		colorMain: function (val) {
+			document.getElementById('v-time-slider').style.setProperty('--colorMain', val);
+    },
+    color: function (val) {
+			document.getElementById('v-time-slider').style.setProperty('--color', val);
+    },
 	},
 	methods: {
 		applyVariables () {
@@ -127,7 +142,7 @@ export default {
 			if (pos) this.x = pos.tmx - this.middleOffset ;
 		},
 		setTicks(tickCount) {
-			let doAxes = new DoAxes();
+			//let doAxes = new DoAxes();
 			//let of = this.ds.of*this.ds.w;
 			let of = this.middleOffset;
 			// Fill Time Label tmlbl ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -136,6 +151,7 @@ export default {
 			this.tmlbl=doAxes.fillTimeLabel(this.ds.w,of,1440).map((x) => x);
 			while (this.tiki.length>0) {	this.tiki.pop()	};
 			this.tiki=doAxes.fillAxisLabel(of,1440,tickCount).map((x) => x);
+			console.log("fillAxisLabel  ",this.tiki);
 		},
 		initSvg(event) {
 			if (event) {
@@ -145,7 +161,7 @@ export default {
 			} else {
 				return;
 			}
-
+			//console.log("mv ", this.ds.mv)
 			if (this.svgSlider) {
 				let CTM = this.svgSlider.getScreenCTM();
 				let moverPos =this.svgSlider.getElementById('pMover').getBoundingClientRect();
