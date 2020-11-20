@@ -63,5 +63,5 @@ Or use directly from a CDN
 
 ```
 # try it
-See the Pen [first-look](https://codepen.io/dhruuva/pen/YzWMYWJ) by Aleksey Bazhenov
+Go [first-look](https://codepen.io/dhruuva/pen/YzWMYWJ) by Aleksey Bazhenov
   ([@dhruuva](https://codepen.io/dhruuva)) on [CodePen](https://codepen.io).
