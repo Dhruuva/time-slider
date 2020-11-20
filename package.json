@@ -1,6 +1,6 @@
 {
-  "name": "tmslider",
-  "version": "0.1.0",
+  "name": "time-slider",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

@@ -4,12 +4,11 @@
 module.exports = {
   devServer: { port: 8787 },
   assetsDir: "www",
- // publicPath: "/time-slider", // publish git remore
-  publicPath: process.env.NODE_ENV === 'production'
-    ? "/time-slider"
-    : "/time-slider", 
+  // publicPath: "/time-slider", // publish git remore
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/time-slider" : "/time-slider",
   //crossorigin: "anonymous",
- // productionSourceMap: false,
+  // productionSourceMap: false,
   //mode: 'production',
   //productionTip = false, does not work
   css: {
@@ -18,7 +17,7 @@ module.exports = {
   },
 
   chainWebpack: config => {
-   // config.set('productionSourceMap',false);
+    // config.set('productionSourceMap',false);
     //config.node.set('global', false)
     //devServer.hot(true);
     const sRule = config.module.rule("stylus");

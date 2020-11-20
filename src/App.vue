@@ -15,7 +15,7 @@
         .w3-col.m2
           div.w3-panel.w3-yellow.w3-card-4
             p Viewbox height: {{d.h}} 
-            input(type="range" v-model="d.h" min="60" max="200")
+            input(type="range" v-model="d.h" min="30" max="200")
         .w3-col.m2
           div.w3-panel.w3-yellow.w3-card-4
             p Axis y: {{d.y}} 
@@ -86,9 +86,9 @@
       .w3-col.m12(style="margin-top:-35px")
         .w3-panel.w3-round-xxlarge.w3-deep-orange.w3-animate-zoom
           h5.w3-snow( style="text-shadow:1px 1px 0 #444") {{html}}
-      .w3-col.m12(style="margin-top:-5px")          
-        TimeSlider(ref="timeSlider1" :ds="d" :n="f" :tickCount="tickCount" v-on:current-time="shiftTime($event)" colorMain="blue" color="snow")                      
-
+      .w3-col.m12(style="margin-top:-5px")
+        times-slider1(:ds="{ w:2000, h:120, y:0.7125, tmy:0.201, tsz:0.06, lby:0.93, mv:0.93 }" :n="{ t:72.5, l:81.4, k:500 }" :tickCount=4 colorMain='red' color='gray' v-on:current-time="shiftTime($event)")
+         
 </template>
 
 <script>
@@ -98,7 +98,7 @@ import TimeSlider from "./components/TimeSlider.vue";
 export default {
   name: "app",
   components: {
-    TimeSlider
+    TimeSlider,'times-slider1':TimeSlider
   },
   data: () => ({
     d: {
@@ -112,13 +112,13 @@ export default {
     }, // Percent of mover size 100 X 100 (thumb)
     f: { t: 72.5, l: 81.4, k: 500 },
     tickCount: 16, // :n="'{t:'+t+',l:'+l+',k:'+k+'}'"
-    colorMain:'#2F4F4F',
-    color:'#f0f8ff',
-    curTime: new Date(Date.now()).toTimeString().slice(0,5)
+    colorMain: "#2F4F4F",
+    color: "#f0f8ff",
+    curTime: new Date(Date.now()).toTimeString().slice(0, 5)
   }),
   computed: {
     ds: function() {
-      let p = "{ w:";
+      let p = '"{ w:';
       p = p.concat(
         this.d.w.toString(),
         ", h:",
@@ -133,20 +133,20 @@ export default {
         this.d.lby.toString(),
         ", mv:",
         this.d.mv.toString(),
-        " }"
+        '  }"'
       );
       //this.ds1=JSON.parse(p);
       return p;
     },
     n: function() {
-      let p = "{ t:";
+      let p = '"{ t:';
       p = p.concat(
         this.f.t.toString(),
         ", l:",
         this.f.l.toString(),
         ", k:",
         this.f.k.toString(),
-        " }"
+        ' }"'
       );
       return p;
     },
@@ -163,21 +163,24 @@ export default {
         this.n,
         " :tickCount=",
         this.tickCount,
-        " ><time-slider/>"
+        " ></time-slider>"
       );
       return p;
     },
     c: function() {
-      let p = ":colorMain='";
-      p = p.concat(this.colorMain.toString(),"'  ");
-      p = p.concat(":color='",this.color.toString(),"'");
+      let p = "colorMain='";
+      p = p.concat(this.colorMain.toString(), "'  ");
+      p = p.concat("color='", this.color.toString(), "'");
       return p;
     },
-    html:function() {
+    html: function() {
       let p = "";
-      p = p.concat(this.str.toString().slice(0,-15),this.c,
-                "  v-on:current-time="+'"shiftTime($event)" '+" ><time-slider/>");
-     
+      p = p.concat(
+        this.str.toString().slice(0, -15),
+        this.c,
+        "  v-on:current-time=" + '"shiftTime($event)" ' + " ></time-slider>"
+      );
+
       return p;
     },
     tik: function() {

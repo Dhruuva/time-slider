@@ -66,7 +66,7 @@ export default {
 			) //ds:{w:2000, h:120,  y:0.7125, tmy:0.20, tsz:0.06, lby:0.93, mv:0.06 },
 		},
 		tickCount:{
-			type:Number,
+			type:[Number,String],
 			default: () =>(25)
 		},
 		colorMain: {
@@ -108,7 +108,7 @@ export default {
 	mounted: function () {
 		window.addEventListener('mouseup', this.stopDrag);
 		this.initSvg();
-		console.log(this.$refs.v_time_slider.style,"  ",this.uid)
+		
 		this.$refs.v_time_slider.style.setProperty('--colorMain', this.colorMain);
 		this.$refs.v_time_slider.style.setProperty('--color', this.color);
 		//document.getElementById('v-time-slider').style.setProperty('--colorMain', this.colorMain);
@@ -122,10 +122,12 @@ export default {
 	},
 	watch: {
 		colorMain: function (val) {
-			document.getElementById('v-time-slider').style.setProperty('--colorMain', val);
+			this.$refs.v_time_slider.style.setProperty('--colorMain', val);
+			//document.getElementById('v-time-slider').style.setProperty('--colorMain', val);
     },
     color: function (val) {
-			document.getElementById('v-time-slider').style.setProperty('--color', val);
+			//document.getElementById('v-time-slider').style.setProperty('--color', val);
+			this.$refs.v_time_slider.style.setProperty('--color', val);
     },
 	},
 	methods: {
@@ -150,7 +152,7 @@ export default {
 			this.tmlbl=doAxes.fillTimeLabel(this.ds.w,of,1440).map((x) => x);
 			while (this.tiki.length>0) {	this.tiki.pop()	};
 			this.tiki=doAxes.fillAxisLabel(of,1440,tickCount).map((x) => x);
-			console.log("fillAxisLabel  ",this.tiki);
+			
 		},
 		initSvg(event) {
 			if (event) {
@@ -160,7 +162,7 @@ export default {
 			} else {
 				return;
 			}
-			//console.log("mv ", this.ds.mv)
+			
 			if (this.svgSlider) {
 				let CTM = this.svgSlider.getScreenCTM();
 				let moverPos =this.svgSlider.getElementById('pMover').getBoundingClientRect();
