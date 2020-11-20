@@ -129,6 +129,10 @@ export default {
 			//document.getElementById('v-time-slider').style.setProperty('--color', val);
 			this.$refs.v_time_slider.style.setProperty('--color', val);
     },
+    tickCount: function (val) {
+			//this.setTicks(val);
+			this.initSvg();
+    },
 	},
 	methods: {
 		applyVariables () {
@@ -233,18 +237,14 @@ $colorMain = var(--colorMain)
 $color = var(--color)
 body
 	font-size 2em
-	font 14px/1.5 Helvetica, arial, sans-serif
 #v-time-slider
 	text-align center	
 .zero 
 	width 100%
-	display flex
-	justify-content center
-	align-items center
 	&_rect
 		rx 15px
 		stroke $colorMain 
-		stroke-width 1.5 
+		stroke-width 1.1 
 		border-style solid 
 		stroke-opacity 0.71
 .axis
@@ -252,14 +252,13 @@ body
 	&_ticks
 		stroke $colorMain
 		&_labels
-			font-family sans-serif
 			text-anchor middle
 			fill $colorMain
 .draggable
 	stroke-width  0
 	&:hover
 		cursor move
-		stroke-width 1
+		stroke-width 1.5
 		stroke $colorMain
 .main-stop 
 	stop-color  $colorMain
@@ -268,8 +267,6 @@ body
 .static 
 	cursor arrow
 .lblNowTime
-	font-family arial
 	fill $colorMain
-	text-align center
 	text-anchor middle
 </style>

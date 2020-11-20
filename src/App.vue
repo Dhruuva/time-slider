@@ -87,7 +87,7 @@
         .w3-panel.w3-round-xxlarge.w3-deep-orange.w3-animate-zoom
           h5.w3-snow( style="text-shadow:1px 1px 0 #444") {{html}}
       .w3-col.m12(style="margin-top:-5px")
-        times-slider1(:ds="{ w:2000, h:120, y:0.7125, tmy:0.201, tsz:0.06, lby:0.93, mv:0.93 }" :n="{ t:72.5, l:81.4, k:500 }" :tickCount=4 colorMain='red' color='gray' v-on:current-time="shiftTime($event)")
+        times-slider1(:ds="{ w:2000, h:111, y:0.7125, tmy:0.201, tsz:0.06, lby:0.93, mv:0.85 }" :n="{ t:109.5, l:111, k:870 }" :tick-count=25 color-main='#c9eccd' color='#1a2b3b' v-on:current-time="shiftTime($event)" )
          
 </template>
 
@@ -151,7 +151,7 @@ export default {
       return p;
     },
     t: function() {
-      let p = "{ tickCount:";
+      let p = "{ tick-count:";
       p = p.concat(this.tickCount.toString(), " }");
       return p;
     },
@@ -161,14 +161,14 @@ export default {
         this.ds,
         " :n=",
         this.n,
-        " :tickCount=",
+        " :tick-count=",
         this.tickCount,
         " ></time-slider>"
       );
       return p;
     },
     c: function() {
-      let p = "colorMain='";
+      let p = "color-main='";
       p = p.concat(this.colorMain.toString(), "'  ");
       p = p.concat("color='", this.color.toString(), "'");
       return p;
