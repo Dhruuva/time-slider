@@ -26,12 +26,12 @@
 					g(:id="'cir-'+uid+''")
 						circle( cx="29" cy="45" r="30" :fill="'url(#inner-mover-'+uid+')'")
 				g.static
-					rect.zero_rect( x="0" y="0" :width="ds.w" :height="ds.h"  :fill="'url(#bg-slider-'+uid+')'")
+					rect.rect( x="0" y="0" :width="ds.w" :height="ds.h"  :fill="'url(#bg-slider-'+uid+')'")
 					line.axis( :x1="middleOffset" :x2="ds.w-middleOffset" :y1="ds.h*ds.y" :y2="ds.h*ds.y" :stroke-width="k"  )
 					text.lblNowTime( :x="x+middleOffset" :y="ds.h*ds.tmy"   :font-size="tmf" ) {{curTm}}
 				g.static(v-for="n in tiki" :key="n.id") 
-					line.axis_ticks( :x1="n.x" :x2="n.x" :y1="ds.h*ds.y" :y2="ds.h*ds.y-ds.h*ds.tsz" :stroke-width="k")
-					text.axis_ticks_labels( :x="n.x" :y="ds.h*ds.lby"  :font-size="lbf" ) {{n.tml}}
+					line.axis.ticks( :x1="n.x" :x2="n.x" :y1="ds.h*ds.y" :y2="ds.h*ds.y-ds.h*ds.tsz" :stroke-width="k")
+					text.axis.ticks.labels( :x="n.x" :y="ds.h*ds.lby"  :font-size="lbf" ) {{n.tml}}
 				g#pMover( @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug" )
 					use(:xlink:href="'#mover-'+uid+''"  :transform="'translate('+x+','+ds.h*y+') scale('+ds.mv+')'" class="draggable")
 </template>
@@ -239,34 +239,36 @@ body
 	font-size 2em
 #v-time-slider
 	text-align center	
-.zero 
-	width 100%
-	&_rect
-		rx 15px
-		stroke $colorMain 
-		stroke-width 1.1 
-		border-style solid 
-		stroke-opacity 0.71
-.axis
-	stroke $colorMain
-	&_ticks
+	& .zero 
+		width 100%
+		& .rect
+			rx 15px
+			stroke $colorMain 
+			stroke-width 1.1 
+			border-style solid 
+			stroke-opacity 0.71
+	& .axis
 		stroke $colorMain
-		&_labels
-			text-anchor middle
-			fill $colorMain
-.draggable
-	stroke-width  0
-	&:hover
-		cursor move
-		stroke-width 1.5
-		stroke $colorMain
-.main-stop 
-	stop-color  $colorMain
-.alt-stop 
-	stop-color  $color
-.static 
-	cursor arrow
-.lblNowTime
-	fill $colorMain
-	text-anchor middle
+		&.ticks
+			stroke $colorMain
+			&.labels
+				text-anchor middle
+				stroke $colorMain
+				stroke-width 0 
+	& .draggable
+		stroke-width  0
+		&:hover
+			cursor move
+			stroke-width 1.5
+			stroke $colorMain
+	& .main-stop 
+		stop-color  $colorMain
+	& .alt-stop 
+		stop-color  $color
+	& .static 
+		cursor arrow
+	& .lblNowTime
+		fill $colorMain
+		text-anchor middle
+		stroke-width 0 
 </style>

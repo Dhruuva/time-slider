@@ -85,10 +85,7 @@
             i.w3-opacity.w3-large {{c}}
       .w3-col.m12(style="margin-top:-35px")
         .w3-panel.w3-round-xxlarge.w3-deep-orange.w3-animate-zoom
-          h5.w3-snow( style="text-shadow:1px 1px 0 #444") {{html}}
-      .w3-col.m12(style="margin-top:-5px")
-        times-slider1(:ds="{ w:2000, h:111, y:0.7125, tmy:0.201, tsz:0.06, lby:0.93, mv:0.85 }" :n="{ t:109.5, l:111, k:870 }" :tick-count=25 color-main='#c9eccd' color='#1a2b3b' v-on:current-time="shiftTime($event)" )
-         
+          h5.w3-snow( style="text-shadow:1px 1px 0 #444") {{html}}         
 </template>
 
 <script>
@@ -98,7 +95,8 @@ import TimeSlider from "./components/TimeSlider.vue";
 export default {
   name: "app",
   components: {
-    TimeSlider,'times-slider1':TimeSlider
+    TimeSlider,
+    "times-slider1": TimeSlider
   },
   data: () => ({
     d: {
