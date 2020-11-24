@@ -33,7 +33,7 @@
 					line.axis.ticks( :x1="n.x" :x2="n.x" :y1="ds.h*ds.y" :y2="ds.h*ds.y-ds.h*ds.tsz" :stroke-width="k")
 					text.axis.ticks.labels( :x="n.x" :y="ds.h*ds.lby"  :font-size="lbf" ) {{n.tml}}
 				g#pMover( @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug" )
-					use(:xlink:href="'#mover-'+uid+''"  :transform="'translate('+x+','+ds.h*y+') scale('+ds.mv+')'" class="draggable")
+					use(:xlink:href="'#mover-'+uid+''"  :transform="' translate('+x+','+ds.h*y+')  scale('+ds.mv+') '" class="draggable")
 </template>
 
 <script>
@@ -252,14 +252,14 @@ body
 		&.ticks
 			stroke $colorMain
 			&.labels
+				stroke-width 0
 				text-anchor middle
-				stroke $colorMain
-				stroke-width 0 
+				fill $colorMain
 	& .draggable
 		stroke-width  0
 		&:hover
 			cursor move
-			stroke-width 1.5
+			stroke-width 1.1
 			stroke $colorMain
 	& .main-stop 
 		stop-color  $colorMain
@@ -270,5 +270,5 @@ body
 	& .lblNowTime
 		fill $colorMain
 		text-anchor middle
-		stroke-width 0 
+		stroke-width 0
 </style>

@@ -85,7 +85,9 @@
             i.w3-opacity.w3-large {{c}}
       .w3-col.m12(style="margin-top:-35px")
         .w3-panel.w3-round-xxlarge.w3-deep-orange.w3-animate-zoom
-          h5.w3-snow( style="text-shadow:1px 1px 0 #444") {{html}}         
+          h5.w3-snow( style="text-shadow:1px 1px 0 #444") {{html}}
+      .w3-col.m12(style="margin-top:-5px")
+        time-slider(:ds="{ w:958, h:50, y:0.78, tmy:0.201, tsz:0.06, lby:0.93, mv:0.45 }" :n="{ t:97, l:119.5, k:1000 }" tick-count=13 color-main='#f0ee56' color='#472713' v-on:current-time="shiftTime($event)")
 </template>
 
 <script>
