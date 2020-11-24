@@ -1,7 +1,7 @@
 <template lang="pug">
 	#v-time-slider(ref="v_time_slider")
 		p(v-if="error") {{error}}
-		svg#svg0.zero( :viewBox="'0,0,'+ds.w+','+ds.h+''" xmlns="http://www.w3.org/2000/svg"  @mousedown="startDrag($event)" @mousemove="doDrag" @load="initSvg")
+		svg#svg0.zero( ref="vsvg" :viewBox="'0,0,'+ds.w+','+ds.h+''" xmlns="http://www.w3.org/2000/svg"  @mousedown="startDrag($event)" @mousemove="doDrag" @load="initSvg" )
 				defs(id="comps")
 					g(:id="'mover-'+uid+''")
 						path( d="m0 10 h80 l0 20 l-20 0 l-10 20 l10 0 l-20 20 l-20 -20 l10 0 l-10 -20 l-20 0 l0 -20" :fill="'url(#out-mover-'+uid+')'")
@@ -28,12 +28,14 @@
 				g.static
 					rect.rect( x="0" y="0" :width="ds.w" :height="ds.h"  :fill="'url(#bg-slider-'+uid+')'")
 					line.axis( :x1="middleOffset" :x2="ds.w-middleOffset" :y1="ds.h*ds.y" :y2="ds.h*ds.y" :stroke-width="k"  )
-					text.lblNowTime( :x="x+middleOffset" :y="ds.h*ds.tmy"   :font-size="tmf" ) {{curTm}}
+					
 				g.static(v-for="n in tiki" :key="n.id") 
 					line.axis.ticks( :x1="n.x" :x2="n.x" :y1="ds.h*ds.y" :y2="ds.h*ds.y-ds.h*ds.tsz" :stroke-width="k")
 					text.axis.ticks.labels( :x="n.x" :y="ds.h*ds.lby"  :font-size="lbf" ) {{n.tml}}
-				g#pMover( @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug" )
-					use(:xlink:href="'#mover-'+uid+''"  :transform="' translate('+x+','+ds.h*y+')  scale('+ds.mv+') '" class="draggable")
+				text.lblNowTime( :x="x+middleOffset" :y="ds.h*ds.tmy"   :font-size="tmf" ) {{curTm}}	
+				g#pMover(:transform="' translate('+x+','+ds.h*y+')  scale('+ds.mv+') '" @mouseenter="canSliderDrug=!canSliderDrug" @mouseleave="canSliderDrug=!canSliderDrug" )
+					use(:xlink:href="'#mover-'+uid+''"   class="draggable")
+
 </template>
 
 <script>
@@ -99,7 +101,7 @@ export default {
 		middleOffset:0,
 	}),
 	computed: {
-		mv: function () { return (this.ds.h/8)*0.06  },
+		mv: function () { return (this.ds.h/8)*this.d.mv  },
 		tmf: function () { return ((this.ds.w*this.u/this.n.t)/this.u)+"px"  },
 		lbf: function () { return ( (this.ds.w*this.u/this.n.l)/this.u)+"px" },
 		k  : function () { return ( (this.ds.w*this.u/this.n.k)/this.u  )+"px"  },
@@ -107,6 +109,11 @@ export default {
 	},
 	mounted: function () {
 		window.addEventListener('mouseup', this.stopDrag);
+		// window.addEventListener('onload', this.initSvg());
+		// window.addEventListener('onload', () => {
+		//   console.log('SVG loaded.');
+		//   //this.initSvg();
+		// })
 		this.initSvg();
 		
 		this.$refs.v_time_slider.style.setProperty('--colorMain', this.colorMain);
@@ -161,8 +168,11 @@ export default {
 		initSvg(event) {
 			if (event) {
 				this.svgSlider=event.target;
+				console.log("this Event id-",this.uid)
 			} else if (!event || !this.svgSlider ) {
 				this.svgSlider=document.getElementById('svg0');
+				this.svgSlider=this.$refs.vsvg;
+				console.log(" no event only id - ",this.uid);
 			} else {
 				return;
 			}
