@@ -8,7 +8,6 @@
       div.w3-panel.w3-pale-yellow
         h6.w3-opacity You can see the parameters effects and how to easy reach customization of the look.  
       .w3-cell-row.w3-border.w3-padding-small
-        
         div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
           p.w3-large.w3-animate-left Viewbox width: {{d.w}} 
           input.w3-input.w3-animate-input(type="range" v-model="d.w" min="100" max="2000")
@@ -43,44 +42,35 @@
           p.w3-small Just copy/past this code to your page
       .w3-panel.w3-animate-bottom           
         TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:current-time="shiftTime($event)" :colorMain="colorMain" :color="color") 
-      .w3-row-padding.w3-border
-        .w3-col.m2
-          div.w3-panel.w3-khaki.w3-card-4
-            p Label font size: {{f.t}} 
-            input(type="range" v-model="f.t" min="10" max="300" step="0.5")
-        .w3-col.m2
-          div.w3-panel.w3-khaki.w3-card-4
-            p Axis labels font size: {{f.l}} 
-            input(type="range" v-model="f.l" min="10" max="300" step="0.5")
-        .w3-col.m2
-          div.w3-panel.w3-khaki.w3-card-4
-            p Stroke width: {{f.k}} 
-            input(type="range" v-model="f.k"  min="10" max="1000" step="10")
-        .w3-col.m2
-          div.w3-panel.w3-lime.w3-card-4
-            p Axis ticks count: {{tickCount}} 
-            input(type="range" v-model.number="tickCount" min="2" max="48" step="1")
-        .w3-col.m2
-          div.w3-panel.w3-card-4.w3-margin      
-            button.w3-button.w3-green.w3-margin(@click="reDraw") ReDraw 
-            
-      .w3-col.m2.w3-margin
-          div.w3-panel.w3-blue.w3-card-4
-            h5 Time: 
-              span.w3-badge.w3-yellow.w3-xlarge {{curTime}}
-      .w3-col.m4.w3-margin
-          div.w3-panel.w3-blue.w3-card-4
-            p.w3-meddium
-            i.w3-opacity.w3-large v-on:current-time="shiftTime($event)"
-            p To capture slider value use component 'current-time' event 
-      .w3-col.m4.w3-margin
-        div.w3-panel.w3-blue.w3-card-4
+      .w3-cell-row.w3-border.w3-padding-small
+        div.w3-container.w3-khaki.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Label font size: {{f.t}} 
+          input.w3-input.w3-animate-input(type="range" v-model="f.t" min="10" max="300" step="0.5")
+        div.w3-container.w3-khaki.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Axis labels font size: {{f.l}} 
+          input.w3-input.w3-animate-input(type="range" v-model="f.l" min="10" max="300" step="0.5")
+        div.w3-container.w3-khaki.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Stroke width: {{f.k}} 
+          input.w3-input.w3-animate-input(type="range" v-model="f.k"  min="10" max="1000" step="10")
+        div.w3-container.w3-lime.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Axis ticks count: {{tickCount}} 
+          input.w3-input.w3-animate-input(type="range" v-model.number="tickCount" min="2" max="48" step="1")
+        div.w3-container.w3-lime.w3-cell.w3-border.w3-border-grey.w3-round-large
+          
+      .w3-cell-row.w3-border.w3-padding-small
+        div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
+          h5 Time: 
+            span.w3-badge.w3-yellow.w3-xlarge {{curTime}}
+        div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large To capture slider value use component 'current-time' event
+          i.w3-opacity.w3-large v-on:current-time="shiftTime($event)" 
+        div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
           div.w3-border.w3-margin
             div.w3-container.w3-margin-left
-              label.w3-cell( for="head") Main color for labels,axe & ticks 
+              label.w3-cell.w3-large( for="head") Main color for labels,axe & ticks 
                 input.w3-cell( type="color" id="head"   v-model="colorMain")
             div.w3-container.w3-margin-left      
-              label.w3-cell.w3-margin-left( for="head2") Secondary color for background   
+              label.w3-cell.w3-margin-left.w3-large( for="head2") Secondary color for background   
                 input.w3-cell( type="color" id="head2"   v-model="color")
             i.w3-opacity.w3-large {{c}}
       .w3-col.m12(style="margin-top:-35px")
@@ -203,7 +193,9 @@ export default {
 body
   padding 1px
   background-color  #fff6e6
-  line-height 0.1em
+  line-height 0.6em
+input 
+  padding 1px !important
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
