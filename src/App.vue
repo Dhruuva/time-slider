@@ -7,40 +7,40 @@
         h3.w3-snow(style="text-shadow:1px 1px 0 #444") This is simple dashboard help You easy apply TimeSlider component on the your page. 
       div.w3-panel.w3-pale-yellow
         h6.w3-opacity You can see the parameters effects and how to easy reach customization of the look.  
-      .w3-row-padding.w3-border
-        .w3-col.m2
-          div.w3-block.w3-yellow.w3-card-4.w3-round-large.w3-border
-            p.w3-large.w3-animate-left Viewbox width: {{d.w}} 
-            input.w3-input.w3-animate-input(type="range" v-model="d.w" min="100" max="2000")
-        .w3-col.m2
-          div.w3-panel.w3-yellow.w3-card-4.w3-border.w3-border-grey.w3-round-large
-            p.w3-large.w3-animate-left Viewbox height: {{d.h}} 
-            input.w3-input.w3-animate-input(type="range" v-model="d.h" min="30" max="200")
-        .w3-col.m2
-          div.w3-panel.w3-yellow.w3-card-4
-            p.w3-large.w3-animate-left Axis y: {{d.y}} 
-            input.w3-input.w3-animate-input(type="range" v-model="d.y" min="0.61" max="0.95" step="0.01")
-        .w3-col.m2
-          div.w3-panel.w3-yellow.w3-card-4
-            p.w3-large.w3-animate-left Label y: {{d.tmy}} 
-            input.w3-input.w3-animate-input(type="range" v-model="d.tmy" min="0.01" max="0.95" step="0.01")
-        .w3-col.m2
-          div.w3-panel.w3-yellow.w3-card-4
-            p.w3-large.w3-animate-left Tick size: {{d.tsz}} 
-            input.w3-input.w3-animate-input(type="range" v-model="d.tsz" min="0.01" max="0.95" step="0.01")
-        .w3-col.m2
-          div.w3-panel.w3-yellow.w3-card-4
-            p.w3-large.w3-animate-left Axis labels y: {{d.lby}} 
-            input.w3-input.w3-animate-input(type="range" v-model="d.lby" min="0.01" max="0.95" step="0.01")
-        .w3-col.m2
-          div.w3-panel.w3-yellow.w3-card-4
-            p.w3-large.w3-animate-left Thumb size: {{d.mv}} 
-            input.w3-input.w3-animate-input(type="range" v-model="d.mv" min="0.01" max="1.3" step="0.01")
-        .w3-col.m10
-          blockquote.w3-panel.w3-leftbar.w3-light-grey
-          p.w3-large
+      .w3-cell-row.w3-border.w3-padding-small
+        
+        div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Viewbox width: {{d.w}} 
+          input.w3-input.w3-animate-input(type="range" v-model="d.w" min="100" max="2000")
+      
+        div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Viewbox height: {{d.h}} 
+          input.w3-input.w3-animate-input(type="range" v-model="d.h" min="30" max="200")
+      
+        div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Axis y: {{d.y}} 
+          input.w3-input.w3-animate-input(type="range" v-model="d.y" min="0.61" max="0.95" step="0.01")
+      
+        div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Label y: {{d.tmy}} 
+          input.w3-input.w3-animate-input(type="range" v-model="d.tmy" min="0.01" max="0.95" step="0.01")
+      
+        div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Tick size: {{d.tsz}} 
+          input.w3-input.w3-animate-input(type="range" v-model="d.tsz" min="0.01" max="0.95" step="0.01")
+      
+        div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Axis labels y: {{d.lby}} 
+          input.w3-input.w3-animate-input(type="range" v-model="d.lby" min="0.01" max="0.95" step="0.01")
+      
+        div.w3-container.w3-yellow.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large.w3-animate-left Thumb size: {{d.mv}} 
+          input.w3-input.w3-animate-input(type="range" v-model="d.mv" min="0.01" max="1.3" step="0.01")
+      .w3-cell-row.w3-border
+        .w3-panel.w3-leftbar.w3-light-grey
+          p.w3-small
           i.w3-opacity.w3-large {{str}}
-          p Just copy/past this code to your page
+          p.w3-small Just copy/past this code to your page
       .w3-panel.w3-animate-bottom           
         TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:current-time="shiftTime($event)" :colorMain="colorMain" :color="color") 
       .w3-row-padding.w3-border
@@ -201,8 +201,9 @@ export default {
 </script>
 <style lang="stylus">
 body
-  padding 5px
+  padding 1px
   background-color  #fff6e6
+  line-height 0.1em
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
