@@ -4,5 +4,18 @@ import { test, expect } from '@playwright/test';
 // https://playwright.dev/docs/intro
 test('visits the app root url', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('h1')).toHaveText('You did it!');
+
+ let em= await expect(page.locator('p'));
+ console.log("em", em);
+  await expect(page.locator('p')).toHaveText('Viewbox width');
+
+  await expect.element(
+    page.getByRole('text', { name: '06:00' })
+  ).toBeVisible()
+
+  test.afterAll(async () => {
+    console.log('Done with tests');
+    // ...
+  });
+
 })
