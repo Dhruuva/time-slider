@@ -23,9 +23,12 @@ body
 	& .draggable
 		stroke-width  0
 		&:hover
-			cursor move
+			cursor url('../assets/grab.png'), auto
 			stroke-width 1.1
 			stroke $colorMain
+		&:active
+			fill #ceed
+			cursor url('../assets/closedhand.cur'), auto	
 	& .main-stop 
 		stop-color  $colorMain
 	& .alt-stop 
