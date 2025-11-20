@@ -58,11 +58,11 @@ export default {
 				{
 					w: 2000,
 					h: 120,     // for viewBox( 0,0,w,h)
-					 y: 0.7125,   // Percent of height (h) where axis placed 0.50 means middle
-					 tmy: 0.201,  // Percent of height (h) where current time label placed
-					 tsz: 0.06,   // Percent of height (h) ticks length
-					 lby: 0.93,   // Percent of height (h) where ticks labels placed
-					 mv:  0.93,   // Percent of mover size 100 X 100 (thumb)
+					y: 0.7125,   // Percent of height (h) where axis placed 0.50 means middle
+					tmy: 0.201,  // Percent of height (h) where current time label placed
+					tsz: 0.06,   // Percent of height (h) ticks length
+					lby: 0.93,   // Percent of height (h) where ticks labels placed
+					mv:  0.93,   // Percent of mover size 100 X 100 (thumb)
 
 				}
 			) //ds:{w:2000, h:120,  y:0.7125, tmy:0.20, tsz:0.06, lby:0.93, mv:0.06 },
@@ -97,7 +97,7 @@ export default {
 		curTm: new Date(Date.now()).toTimeString().slice(0,5),
 		selectedElement:false,
 		offset:0,  // Mouse offset define in startDrag
-		svgSlider:null,
+		svgSlider:{},
 		middleOffset:0,
 	}),
 	computed: {
@@ -121,12 +121,8 @@ export default {
 		//document.getElementById('v-time-slider').style.setProperty('--colorMain', this.colorMain);
 		//document.getElementById('v-time-slider').style.setProperty('--color', this.color)
 	},
-	created() {
-		
-	},
-	activated(){
-		console.log("activated")
-	},
+	emits: ['current-time'],
+	
 	watch: {
 		colorMain: function (val) {
 			this.$refs.v_time_slider.style.setProperty('--colorMain', val);
@@ -168,11 +164,8 @@ export default {
 		initSvg(event) {
 			if (event) {
 				this.svgSlider=event.target;
-				console.log("this Event id-",this.uid)
 			} else if (!event || !this.svgSlider ) {
-				this.svgSlider=document.getElementById('svg0');
 				this.svgSlider=this.$refs.vsvg;
-				console.log(" no event only id - ",this.uid);
 			} else {
 				return;
 			}

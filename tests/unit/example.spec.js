@@ -1,14 +1,21 @@
 // "sideEffects": false
 
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import TimeSlider from "@/components/TimeSlider.vue";
 
-describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
+describe("TimeSlider.vue", () => {
+
+	it('has svg', () => {
+		const wrapper = shallowMount(TimeSlider);
+        expect(wrapper.contains('svg')).toBe(true)
+    })
+
+
+  it("renders props.tickCount when passed", () => {
+    const tickCount = "16";
+    const wrapper = shallowMount(TimeSlider, {
+      propsData: { tickCount }
     });
-    expect(wrapper.text()).toMatch(msg);
+    expect(wrapper.text()).toMatch(tickCount);
   });
 });
