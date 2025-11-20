@@ -1,6 +1,6 @@
 {
   "name": "times-slider",
-  "version": "1.16.0",
+  "version": "1.0.17",
   "private": true,
   "type": "module",
   "engines": {

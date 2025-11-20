@@ -1,0 +1,33 @@
+{
+  "name": "times-slider",
+  "version": "1.0.16",
+  "description": "Nice looking and easy customize vue component for time select using slider.",
+  "main": "TimeSlider.common.js",
+  "module": "TimeSlider.umd.js",
+  "browser": "TimeSlider.umd.min.js",
+  "unpkg": "TimeSlider.umd.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dhruuva/time-slider.git"
+  },
+  "keywords": [
+    "vue",
+    "svg",
+    "web-component",
+    "slider",
+    "input"
+  ],
+  "author": "Aleksey Bazhenov <alekseybazhenov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dhruuva/time-slider/issues"
+  },
+  "homepage": "https://dhruuva.github.io/time-slider/"
+}
+
+
+
+
