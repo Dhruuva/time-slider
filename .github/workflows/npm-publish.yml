@@ -32,6 +32,7 @@ jobs:
           path: |
             dist
       - run: cd dist && ls
+      - name: publish Pages
       - run: cd .. && ls
       - run: npm run build:docs
 
