@@ -1,19 +1,50 @@
 {
   "name": "times-slider",
   "version": "1.0.17",
-  "private": true,
   "type": "module",
+  "description": "Nice looking and easy customize vue component for time select using slider.",
+  "module": "times-slider.es.js",
+  "browser": "times-slider.umd.js",
+  "unpkg": "times-slider.umd.js",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "post": "cp ./package.json ./dist  && cp ./LICENSE ./dist && cp ./src/assets/slider.styl ./dist/slider.styl && cp ./README.md ./dist/README.md",
     "build:docs": "vite build --config vite.config.web.js",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
     "format": "prettier --write src/"
+  },
+  "exports": {
+    ".": {
+      "import": "times-slider.es.js",
+      "require": "times-slider.umd.js"
+    }
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dhruuva/time-slider.git"
+  },
+  "keywords": [
+    "vue",
+    "svg",
+    "web-component",
+    "slider",
+    "input"
+  ],
+  "author": "Aleksey Bazhenov <alekseybazhenov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dhruuva/time-slider/issues"
+  },
+  "homepage": "https://dhruuva.github.io/time-slider/",
+  "peerDependencies": {
+    "vue": "3.x"
   },
   "dependencies": {
     "vue": "^3.5.22"
