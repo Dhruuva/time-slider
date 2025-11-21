@@ -11,7 +11,7 @@ To view online and parameters usage visit repo github-pages:
 https://dhruuva.github.io/time-slider/
 ## Install
 ``` bash
-npm install times-slider --save
+npm install times-slider@1.0.16 --save
 ```
 
 ``` javascript
