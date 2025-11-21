@@ -16,18 +16,42 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm test:unit
+      - run: npm run build
+      - run: ls
+      - run: npm run post
+      - name: Upload dist folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist_pre
+          path: |
+            dist
+      - run: cd dist && ls
+      - name: Build gh-pages
+      - run: cd .. && ls
+      - run: npm run build:docs
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20.x'
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+          cache: 'npm'
+      - name: Download dist
+        uses: actions/download-artifact@v5
+        with:
+          name: dist_pre
+          path: |
+            dist
+      - run: ls
+      - run: |
+          cd dist && ls
+          npm publish --provenance --access public --loglevel verbose
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
