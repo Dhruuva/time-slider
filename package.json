@@ -1,6 +1,6 @@
 {
   "name": "times-slider",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "type": "module",
   "description": "Nice looking and easy customize vue component for time select using slider.",
   "module": "times-slider.es.js",

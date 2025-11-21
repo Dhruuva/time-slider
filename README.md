@@ -1,6 +1,8 @@
 [![npm version](https://badge.fury.io/js/times-slider.svg)](https://badge.fury.io/js/times-slider)
 ![npm](https://img.shields.io/npm/dw/times-slider)
-![MIT License](https://img.shields.io/github/license/dhruuva/times-slider.svg)
+![NPM License](https://img.shields.io/npm/l/times-slider)
+![Static Badge](https://img.shields.io/badge/vue-3.x-green?style=flat&labelColor=gray)
+
 # times-slider
 My times-slider Vue component which provides most comfortable way for user in time operation like selecting,filtering searching ,limiting, ..etc. Compatible with Vue 2.x and at last with Vue 3.
 Vue 2 is legacy now (according to Vue documentation).  And all new versions begging with 1.0.17 will not be supported Vue 2 projects. For using it in Vue 2 feel free and follow vue2 branch of this repo.
@@ -37,7 +39,7 @@ export default {
 ```
 Or use directly from a CDN
 ``` html
-<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/times-slider"></script>
 <div id="app">
 <p>{{curTime}}</p>
