@@ -26,7 +26,6 @@ jobs:
           path: |
             dist
       - run: cd dist && ls
-      - name: Build gh-pages
       - run: cd .. && ls
       - run: npm run build:docs
 
