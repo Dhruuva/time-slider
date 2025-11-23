@@ -14,28 +14,29 @@ To view it online and parameters usage visit https://dhruuva.github.io/time-slid
 ``` bash
 npm install times-slider --save
 ```
+and in your vue page locally used without component registration ( at my view it most easy  way in Vue 3)
+``` html
+<template>
+   <main>
+    <p> {{nowTime}}</p>
+    <mySlider v-on:current-time="shiftTime($event)"  color-main="navy"  color='snow'  ></mySlider>
+  </main>
+</template>
 
+```
 ``` javascript
-<script>
- import TimeSlider from 'times-slider'
-export default {
-	name: 'TestPage',
-	components: {
-		TimeSlider
-	},
-	data () {
-		return {
-			curTime: "00:00"
-		}
-	},
-	methods:{
-		shiftTime(a) {
-			this.curTime=a
-		}
-
-	}
-}
+ <script setup>
+import mySlider from 'times-slider';
+import {ref,reactive} from 'vue'
+const nowTime = ref('00:00');
+const shiftTime = (tm) => nowTime.value=tm;
 </script>
+```
+``` css
+<style>
+@import '/node_modules/times-slider/times-slider.css';
+</style>
+
 ```
 Or use directly from a CDN
 ``` html
@@ -48,27 +49,27 @@ Or use directly from a CDN
 </div>
 </div>
 <script>
-	new Vue({
-		el: '#app',
-		components: {
-		  	TimeSlider
-		},
-		data: () => ({
-			curTime: "00:00"
-		}),
-		methods:{
-		  	shiftTime(a) {
+const { createApp,computed } = Vue;
+const vm = {
+	 components: {
+	    'times-slider': window["TimeSlider"]
+	     },
+	data: () => ({
+		curTime: new Date(Date.now()).toTimeString().slice(0,5),
+	}),
+	
+	methods:{
+		  shiftTime(a) {
 		      this.curTime = a;
-		    },
-		}
-		
-	})
+		    }
+	}	
+};
+Vue.createApp(vm).mount('#app');
 </script>
 
 ```
 # try it
-Go [first-look](https://codepen.io/dhruuva/pen/YzWMYWJ) by Aleksey Bazhenov
-  ([@dhruuva](https://codepen.io/dhruuva)) on [CodePen](https://codepen.io).
+Go [first-look](https://codepen.io/dhruuva/pen/azNVdOQ)  on [CodePen](https://codepen.io).
 
 ## Contributing
 pull requests for Fix bugs, doc errors, new style themes and also new features, suggestions for improvement write me    ... welcome.
