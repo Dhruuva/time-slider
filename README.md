@@ -5,7 +5,7 @@
 
 # times-slider
 My times-slider Vue component which provides most comfortable way for user in time operation like selecting,filtering searching ,limiting, ..etc. Compatible with Vue 2.x and at last with Vue 3.
-Vue 2 is legacy now (according to Vue documentation).  And all new versions begging with 1.0.17 will not be supported Vue 2 projects. For using it in Vue 2 feel free and follow vue2 branch of this repo.
+Vue 2 is legacy now (according to Vue documentation).  And all new versions begging with 1.0.17 will not be supported Vue 2 projects. For using it with Vue 2 feel free and follow vue2 branch of this repo.
 All below instructions is for Vue 3 projects only.
 
 ## Fast look
