@@ -45,7 +45,7 @@ Or use directly from a CDN
 <div id="app">
 <p>{{curTime}}</p>
 <div class="svgResponsive">
-	<time-slider v-on:currentTime="shiftTime($event)"></time-slider>
+	<times-slider v-on:currentTime="shiftTime($event)"></times-slider>
 </div>
 </div>
 <script>
