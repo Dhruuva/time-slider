@@ -39,7 +39,7 @@
         .w3-panel.w3-round-xxlarge.w3-deep-orange.w3-animate-zoom
           button.fly( @click="copyText" )
             Icon(icon="prime:copy" height="29") 
-          h5.w3-snow( style="text-shadow:1px 1px 0 #444") {{html}}
+          h5.w3-snow( style="text-shadow:1px 1px 0 #444;line-height: 1.2em;") {{html}}
           p.w3-small Just copy/past this code to your page
       .w3-panel.w3-animate-bottom           
         TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:current-time="shiftTime($event)" :colorMain="colorMain" :color="color") 
@@ -56,14 +56,13 @@
         div.w3-container.w3-lime.w3-cell.w3-border.w3-border-grey.w3-round-large
           p.w3-large.w3-animate-left Axis ticks count: {{tickCount}} 
           input.w3-input.w3-animate-input(type="range" v-model.number="tickCount" min="2" max="48" step="1")
-        div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large.w3-tooltip
-          span.w3-text.w3-tag.w3-small.w3-light-grey use initSvg() method to update appearance
-          button.w3-btn.w3-blue.w3-margin.w3-padding-large.w3-border.w3-border-gray(@click="reDraw")
-            p.w3-xlarge Reload
+        div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
+          button.tooltip(@click="reDraw" data-text="use initSvg() method to update appearance" style="padding:1em;")
+            p( style="text-shadow:1px 1px 0 #323444;line-height: 0.2em; color:#34de; font-size:1.1em;") Reload
       .w3-cell-row.w3-border.w3-padding-small
         div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
           h6 Time: 
-            span.w3-badge.w3-yellow.w3-xlarge {{curTime}}
+            span.w3-badge.w3-yellow.w3-xlarge(style="text-shadow:1px 1px 0 #323444;line-height: 1.9em; color:#34de; font-size:1.1em;") {{curTime}}
         div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
           p.w3-large To capture slider value use component 'current-time' event
           i.w3-opacity.w3-large v-on:current-time="shiftTime($event)" 
@@ -205,10 +204,11 @@ export default {
 };
 </script>
 <style lang="stylus">
+@import './assets/tooltip.styl'
 body
   padding 1px
   background-color  #fff6e6
-  line-height 0.6em
+  line-height 0.9em
 input 
   padding 1px !important
 #aria

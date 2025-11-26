@@ -98,8 +98,8 @@ export default {
 	mounted() {
 		window.addEventListener('mouseup', this.stopDrag);
 		this.initSvg();
-		this.$refs.v_time_slider.style.setProperty('--colorMain', this.colorMain);
-		this.$refs.v_time_slider.style.setProperty('--color', this.color);
+		this.$refs.v_time_slider.style.setProperty('--colorMain_v_time-slider', this.colorMain);
+		this.$refs.v_time_slider.style.setProperty('--color_v_time-slider', this.color);
 		
 	},
 	computed: {
@@ -111,12 +111,12 @@ export default {
 	},
 	watch: {
 		colorMain(val) {
-			this.$refs.v_time_slider.style.setProperty('--colorMain', val);
+			this.$refs.v_time_slider.style.setProperty('--colorMain_v_time-slider', val);
 			//document.getElementById('v-time-slider').style.setProperty('--colorMain', val);
 		},
 		color (val) {
 			//document.getElementById('v-time-slider').style.setProperty('--color', val);
-			this.$refs.v_time_slider.style.setProperty('--color', val);
+			this.$refs.v_time_slider.style.setProperty('--color_v_time-slider', val);
 		},
 		tickCount(val) {
 			//this.setTicks(val);
@@ -167,17 +167,12 @@ export default {
 			
 		},
 		getMousePosition(evt) {
-			// var CTM = this.svgSlider.getScreenCTM();
-			// return {
-			//  x: (evt.clientX - CTM.e) / CTM.a,
-			//  y: (evt.clientY - CTM.f) / CTM.d
-			// };
-			
-				let pt = this.svgSlider.createSVGPoint();
-				pt.x = evt.clientX;
-				pt.y = evt.clientY;
-				let cursorPt = pt.matrixTransform(this.svgSlider.getScreenCTM().inverse());
-				return {x: Math.floor(cursorPt.x), y: Math.floor(cursorPt.y)}
+						
+			let pt = this.svgSlider.createSVGPoint();
+			pt.x = evt.clientX;
+			pt.y = evt.clientY;
+			let cursorPt = pt.matrixTransform(this.svgSlider.getScreenCTM().inverse());
+			return {x: Math.floor(cursorPt.x), y: Math.floor(cursorPt.y)}
 			
 		},
 		startDrag(event) {
@@ -219,7 +214,7 @@ export default {
 
 </script> 
 
-<style  lang='stylus'>
+<style scoped  lang='stylus'>
 @import '.././assets/slider.styl'
 
 </style>

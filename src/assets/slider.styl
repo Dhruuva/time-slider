@@ -1,41 +1,39 @@
-$colorMain = var(--colorMain)
-$color = var(--color)
-body
-	font-size 2em
+$colorMain_v_time-slider = var(--colorMain_v_time-slider)
+$color_v_time-slider = var(--color_v_time-slider)
 #v-time-slider
 	text-align center	
 	& .zero 
 		width 100%
 		& .rect
 			rx 15px
-			stroke $colorMain 
+			stroke $colorMain_v_time-slider 
 			stroke-width 1.1 
 			border-style solid 
 			stroke-opacity 0.71
 	& .axis
-		stroke $colorMain
+		stroke $colorMain_v_time-slider
 		&.ticks
-			stroke $colorMain
+			stroke $colorMain_v_time-slider
 			&.labels
 				stroke-width 0
 				text-anchor middle
-				fill $colorMain
+				fill $colorMain_v_time-slider
 	& .draggable
 		stroke-width  0
 		&:hover
 			cursor url('../assets/grab.png'), auto
 			stroke-width 1.1
-			stroke $colorMain
+			stroke $colorMain_v_time-slider
 		&:active
 			fill #ceed
 			cursor url('../assets/closedhand.cur'), auto	
 	& .main-stop 
-		stop-color  $colorMain
+		stop-color  $colorMain_v_time-slider
 	& .alt-stop 
-		stop-color  $color
+		stop-color  $color_v_time-slider
 	& .static 
 		cursor arrow
 	& .lblNowTime
-		fill $colorMain
+		fill $colorMain_v_time-slider
 		text-anchor middle
 		stroke-width 0

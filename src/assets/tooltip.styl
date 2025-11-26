@@ -1,0 +1,55 @@
+.tooltip
+    position relative
+   // border-bottom 0.1px dashed #065700
+    
+.tooltip
+    &:before
+        content attr(data-text)
+        position absolute
+        top 50%
+        transform translateY(-10%)
+        right 100%
+        margin-left 5px
+        min-width 5rem
+        padding .1rem
+        border-radius 0.3rem
+        background #f7e6d4
+        text-align center
+        display none
+        opacity 0
+        transition 1.3s opacity
+        white-space: normal
+        padding 0.3rem
+        line-height 1.3rem
+     .tide
+        &:before
+            content attr(data-text)
+            position absolute
+            top 50%
+            transform translateY(-10%)
+            right 100%
+            margin-left 5px
+            min-width 5rem
+            padding .1rem
+            border-radius 0.3rem
+            background #f7e6d4
+            text-align center
+            display none
+            opacity 0
+            transition 1.3s opacity
+            white-space: pre
+            padding 0.3rem
+            width 6rem
+            color red
+               
+        
+.tooltip
+    &:hover
+        &:before
+            display block
+            opacity 0.75
+    .tide
+        &:hover
+        &:before
+            display block
+            opacity 0.85 
