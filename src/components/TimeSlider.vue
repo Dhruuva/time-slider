@@ -78,6 +78,10 @@ export default {
 			type: String,
 			default: () =>(Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5))
 		},
+		time: {
+			type: String,
+			default: () => new Date(Date.now()).toTimeString().slice(0,5)
+		},
 	},
 
 	data() {
@@ -122,6 +126,9 @@ export default {
 			//this.setTicks(val);
 			this.initSvg();
 		},
+		// curTm(val){
+		// 	this.setNowTime();
+		// }
 	},
 	methods: {
 				applyVariables () {
@@ -130,7 +137,11 @@ export default {
 		},
 		setNowTime(){
 			// Set Current Time
-			this.curTm = new Date(Date.now()).toTimeString().slice(0,5);
+			if (this.time.length<5 || this.time.match(/^[0-9]+:[0-9]/ig)==null) {
+				this.curTm = new Date(Date.now()).toTimeString().slice(0,5);
+			} else{
+				this.curTm = this.time;
+			}
 			let pos =  this.tmlbl.find(a => a.tm == this.curTm);
 			//console.log( " Cur getTime" ,this.curTm, " pos ", pos, "middleOffset:",this.middleOffset);
 			if (pos) this.x = pos.tmx - this.middleOffset ;

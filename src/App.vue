@@ -77,7 +77,7 @@
             i.w3-opacity.w3-large {{c}}
 
       .w3-cell-row.w3-border.w3-padding-small(style="margin-top:-5px")
-        times-slider1(ref="timeSlider2" :ds="{ w:958, h:45, y:0.78, tmy:0.201, tsz:0.06, lby:0.93, mv:0.35 }" :n="{ t:97, l:119.5, k:1000 }" tick-count=13 color-main='#f0ee56' color='#472713' v-on:current-time="shiftTime($event)")
+        times-slider1(ref="timeSlider2" :ds="{ w:958, h:45, y:0.78, tmy:0.201, tsz:0.06, lby:0.93, mv:0.35 }" :n="{ t:97, l:119.5, k:1000 }" tick-count=13 color-main='#f0ee56' color='#472713' v-on:current-time="shiftTime($event)" time="12:00")
       textarea#aria(:style="aStyle" rows="1" :value="html" )    
 </template>
 
