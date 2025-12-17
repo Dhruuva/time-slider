@@ -126,9 +126,9 @@ export default {
 			//this.setTicks(val);
 			this.initSvg();
 		},
-		// curTm(val){
-		// 	this.setNowTime();
-		// }
+		time(val){
+			this.setNowTime();
+		}
 	},
 	methods: {
 				applyVariables () {
@@ -140,7 +140,8 @@ export default {
 			if (this.time.length<5 || this.time.match(/^[0-9]+:[0-9]/ig)==null) {
 				this.curTm = new Date(Date.now()).toTimeString().slice(0,5);
 			} else{
-				this.curTm = this.time;
+				this.curTm = this.time.slice(0,5);
+				//console.log( " Cur getTime" ,this.time,this.time.slice(0,5));
 			}
 			let pos =  this.tmlbl.find(a => a.tm == this.curTm);
 			//console.log( " Cur getTime" ,this.curTm, " pos ", pos, "middleOffset:",this.middleOffset);

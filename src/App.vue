@@ -41,8 +41,10 @@
             Icon(icon="prime:copy" height="29") 
           h5.w3-snow( style="text-shadow:1px 1px 0 #444;line-height: 1.2em;") {{html}}
           p.w3-small Just copy/past this code to your page
+
       .w3-panel.w3-animate-bottom           
-        TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:current-time="shiftTime($event)" :colorMain="colorMain" :color="color") 
+        TimeSlider(ref="timeSlider" :ds="d" :n="f" :tickCount="tickCount" v-on:current-time="shiftTime($event)" :colorMain="colorMain" :color="color")
+        textarea#aria(:style="aStyle" rows="1" :value="html" )  
       .w3-cell-row.w3-border.w3-padding-small
         div.w3-container.w3-khaki.w3-cell.w3-border.w3-border-grey.w3-round-large
           p.w3-large.w3-animate-left Label font size: {{f.t}} 
@@ -62,7 +64,12 @@
       .w3-cell-row.w3-border.w3-padding-small
         div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
           h6 Time: 
-            span.w3-badge.w3-yellow.w3-xlarge(style="text-shadow:1px 1px 0 #323444;line-height: 1.9em; color:#34de; font-size:1.1em;") {{curTime}}
+            span.w3-badge.w3-yellow.w3-xlarge(style="text-shadow:1px 1px 0 #323444;line-height: 1.9em; color:#34de; font-size:1.1em;") {{curTime.slice(0,5)}}
+        div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
+          p.w3-large use 'time' property to set the initial value
+          label(for='atime')  time: 
+            input#atime(type='time' name='atime' min ="00:00" step="2"  v-model="curTime" )
+            span.validity  
         div.w3-container.w3-blue.w3-cell.w3-border.w3-border-grey.w3-round-large
           p.w3-large To capture slider value use component 'current-time' event
           i.w3-opacity.w3-large v-on:current-time="shiftTime($event)" 
@@ -77,8 +84,8 @@
             i.w3-opacity.w3-large {{c}}
 
       .w3-cell-row.w3-border.w3-padding-small(style="margin-top:-5px")
-        times-slider1(ref="timeSlider2" :ds="{ w:958, h:45, y:0.78, tmy:0.201, tsz:0.06, lby:0.93, mv:0.35 }" :n="{ t:97, l:119.5, k:1000 }" tick-count=13 color-main='#f0ee56' color='#472713' v-on:current-time="shiftTime($event)" time="12:00")
-      textarea#aria(:style="aStyle" rows="1" :value="html" )    
+        times-slider1(ref="timeSlider2" :ds="{ w:958, h:45, y:0.78, tmy:0.201, tsz:0.06, lby:0.93, mv:0.35 }" :n="{ t:97, l:119.5, k:1000 }" tick-count=13 color-main='#f0ee56' color='#472713' v-on:current-time="shiftTime($event)" :time="curTime")
+          
 </template>
 
 <script>
