@@ -32,9 +32,15 @@ jobs:
           path: |
             dist
       - run: cd dist && ls
-        name: publish Pages 2
+        name: publish Pages 2r
       - run: cd .. && ls
       - run: npm run build:docs
+      - name: Upload docs folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs_pre
+          path: |
+            docs
 
   publish-npm:
     needs: build
@@ -61,3 +67,9 @@ jobs:
           npm publish --provenance --access public --loglevel verbose
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Download Docs
+        uses: actions/download-artifact@v5
+        with:
+          name: docs_pre
+          path: |
+            docs    
